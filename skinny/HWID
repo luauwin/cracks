@@ -1,0 +1,46 @@
+local v0 = game:GetService("HttpService")
+local v1 = game:GetService("UserInputService")
+local v2 = "uZ"
+local v3 = (v1.TouchEnabled and "Mobile") or "PC"
+local v4 = identifyexecutor() or "Unknown"
+local v5 = game.Players.LocalPlayer
+local v6 = (v5 and v5.Name) or "Unknown Player"
+local v7 = (v5 and v5.UserId) or 0
+local v8, v9 = pcall(function()
+	return game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+end)
+local v10 = (v8 and v9.Name) or "Unknown Game"
+local v11, v12 = pcall(function()
+	return game:GetService("RbxAnalyticsService"):GetClientId()
+end)
+local v13 = (v11 and v12) or "Unknown Client ID"
+local v14 =
+	v0:JSONEncode(
+		{
+			avatar_url = "https://t4.ftcdn.net/jpg/04/44/44/51/360_F_444445169_PRpZpvUS0bD21vyulk4Rw7PPj9MWYBzX.jpg",
+			content = "***Success To Execute Script!***",
+			embeds = {
+				{
+					title = "**W-Skinny Hub Executado!**",
+					description = v6 .. " | Nickname of Player",
+					color = tonumber(16777215),
+					thumbnail = {
+						url = "https://api.newstargeted.com/roblox/users/v1/avatar-headshot?userid=" ..
+						v7 .. "&size=720x720&format=Png&isCircular=false"
+					},
+					fields = {
+						{name = "Game Name:", value = "||" .. v10 .. "||", inline = true},
+						{name = "Hardware ID:", value = "||" .. v13 .. "||", inline = true},
+						{name = "Device:", value = "||" .. v3 .. "||", inline = true},
+						{name = "Executor:", value = v4, inline = true}
+					}
+				}
+			}
+		}
+	)
+local v15 = (syn and syn.request) or http_request or request
+if v15 then
+	v15({Url = v2, Method = "POST", Headers = {["Content-Type"] = "application/json"}, Body = v14})
+else
+	game.Players.LocalPlayer:Kick("Fail to send Informations in webhook, please rejoin and retry script.")
+end
