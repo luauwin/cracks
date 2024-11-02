@@ -1,0 +1,17 @@
+local link = loadstring(game:HttpGet("https://pastebin.com/raw/ZjTytAmD"))()
+local HWIDTable = { link }
+local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
+
+local found = false
+
+for i, v in pairs(HWIDTable) do
+    if v:lower() == HWID:lower() then
+        loadstring(game:HttpGet("https://pastebin.com/raw/jrVdTE7E"))()
+        found = true
+        break
+    end
+end
+
+if not found then
+    game.Players.LocalPlayer:Kick("HWID not found.")
+end
