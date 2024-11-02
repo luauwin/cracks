@@ -1,0 +1,92 @@
+ if game.PlaceId == 15758062201 then
+local DrRayLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AZYsGithub/DrRay-UI-Library/main/DrRay.lua"))()
+local window = DrRayLibrary:Load("RF24 - 2010ono", "Default")
+local tab = DrRayLibrary.newTab("Bypass / Misc", "ImageIdHere")
+local tab2 = DrRayLibrary.newTab("Boot Reach", "ImageIdHere")
+local tab3 = DrRayLibrary.newTab("Hand Reach", "ImageIdHere")
+local tab4 = DrRayLibrary.newTab("Head Reach", "ImageIdHere")
+local tab5 = DrRayLibrary.newTab("Torso Reach", "ImageIdHere")
+tab.newButton("AntiCheat Bypass", "Bypasses the anti cheat", function()
+    while true do
+game.ReplicatedStorage.KAIEvent:Destroy()
+game.ReplicatedStorage.Shared:Destroy()
+game.ReplicatedStorage.Network.NetworkBindableEvent:Destroy()
+wait(0)
+end
+end)
+tab.newButton("Infinite Stamina", "Infinite stamina", function()
+    while true do
+game.Players.LocalPlayer.PlayerGui.UI.Stamina:Destroy()
+wait(0)
+end
+end)
+tab.newButton("Anti Votekick", "Disables votr kick", function()
+    while true do
+		game.Players.LocalPlayer.PlayerGui.Main.voteKick:Destroy()
+		game.Players.LocalPlayer.PlayerGui.Main.VoteKick:Destroy()
+wait(0)
+end
+end)
+tab.newButton("Auto run", "Prints Hello!", function()
+    while true do
+game.Players.LocalPlayer.Character.Humanoid.Walkspeed = 22
+wait(0)
+end
+end)
+tab2.newSlider("LegReach", "Changes your leg reach", 50, false, function(num)
+    local Size = num
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+character["RightBoot"].Size = Vector3.new(Size, Size, Size)
+character["LeftBoot"].Size = Vector3.new(Size, Size, Size)
+character["RightBoot"].CanCollide = false
+character["LeftBoot"].CanCollide = false
+character["RightBoot"].Massless = true
+character["LeftBoot"].Massless = true
+end)
+tab2.newButton("Legs Transparency", "Makes the legs invisible", function()
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+while true do
+    character["RightBoot"].Transparency = 1
+		character["LeftBoot"].Transparency = 1
+wait(0)
+end
+end)
+tab3.newSlider("GK Reach", "Increases hand", 20, false, function(num)
+    local Size = num
+game.Players.LocalPlayer.Character.RightHand.Size = Vector3.new(Size, Size, Size)
+        game.Players.LocalPlayer.Character.LeftHand.Size = Vector3.new(Size, Size, Size)
+        game.Players.LocalPlayer.Character.RightHand.CanCollide = false
+        game.Players.LocalPlayer.Character.LeftHand.CanCollide = false
+        game.Players.LocalPlayer.Character.RightHand.Massless = true
+        game.Players.LocalPlayer.Character.LeftHand.Massless = true
+end)
+tab3.newButton("GK Transparency", "Makes it invis", function()
+    game.Players.LocalPlayer.Character.RightHand.Transparency = 1
+game.Players.LocalPlayer.Character.LeftHand.Transparency = 1
+end)
+tab4.newSlider("Head Reach", "Head reach", 50, false, function(num)
+    local Size = num
+		local player = game.Players.LocalPlayer.Character
+player.Head.Massless = true
+player.Head.CanCollide = false
+player.Head.Size = Vector3.new(Size, Size, Size)
+end)
+tab4.newButton("Head transparent", "Makes heads transparency 1", function()
+    game.Players.LocalPlayer.Character.Head.Transparency = 1
+end)
+tab5.newSlider("Torso Reach", "Epic slider", 100, false, function(num)
+    local Size = num
+game.Players.LocalPlayer.Character.UpperTorso.Size = Vector3.new(Size, Size, Size)
+game.Players.LocalPlayer.Character.LowerTorso.Size = Vector3.new(Size, Size, Size)
+game.Players.LocalPlayer.Character.UpperTorso.Massless = true
+game.Players.LocalPlayer.Character.UpperTorso.CanCollide = false
+game.Players.LocalPlayer.Character.LowerTorso.CanCollide = false
+game.Players.LocalPlayer.Character.LowerTorso.Massless = true
+end)
+tab5.newButton("Torso Transparent", "Prints Hello!", function()
+    game.Players.LocalPlayer.Character.UpperTorso.Transparency = 1
+game.Players.LocalPlayer.Character.LowerTorso.Transparency = 1
+end)
+end  (edited 10/2/24, 10:31:13 PM)
