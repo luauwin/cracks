@@ -1,0 +1,2358 @@
+local v9 = loadstring(game:HttpGet("https://api.irisapp.ca/Scripts/IrisBetterNotifications.lua"))()
+local function v10(v58, v59, v60)
+	v9.Notify(v58, v59, v60, {Duration = 15, Main = {Rounding = true}, Position = "BottomRight"})
+end
+local v5, v11 =
+	pcall(
+		function()
+			local function v61(v238)
+				if (v238 and v238.Destroy) then
+					v238:Destroy()
+				end
+			end
+			local function v62(v239)
+				if v239 then
+					local v609 = v239:FindFirstChild("BannedPlayer")
+					if v609 then
+						v61(v609)
+						print("O caminho 'BannedPlayer' foi destruÃ­do com sucesso em:", v239.Name)
+					else
+						print("O objeto 'BannedPlayer' nÃ£o foi encontrado em:", v239.Name)
+					end
+				else
+					print("O caminho nÃ£o foi encontrado.")
+				end
+			end
+			local v63 = game.ReplicatedStorage:FindFirstChild("PlayerSave")
+			v62(v63)
+			local v64 = game.Players.LocalPlayer.Name
+			local v65 = game.Lighting:FindFirstChild(v64)
+			v62(v65)
+			for v240, v241 in pairs(game:GetService("Workspace").FE.Settings:GetChildren()) do
+				if (v241.Name == "BName") then
+					v61(v241)
+				end
+			end
+			local function v66(v242)
+				wait(0.5)
+				for v482, v483 in pairs(v242:GetChildren()) do
+					if (v483.Name == " ") then
+						v61(v483)
+					end
+				end
+			end
+			game.Players.LocalPlayer.CharacterAdded:Connect(
+				function(v243)
+					v66(v243)
+				end
+			)
+			for v244, v245 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if
+					((v245.Name == " ") or
+						(v245:IsA("LocalScript") and (string.match(v245.Name, "%d") or string.match(v245.Name, " "))))
+				then
+					v61(v245)
+				end
+			end
+			for v246, v247 in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+				if ((v247.Name == "CheckPlayerW") or (v247.Name == "Gradient")) then
+					v61(v247)
+				end
+			end
+			for v248, v249 in pairs(game.StarterGui.Start:GetChildren()) do
+				if ((v249.Name == "CheckPlayerW") or (v249.Name == "Gradient")) then
+					v61(v249)
+				end
+			end
+			for v250, v251 in pairs(game.StarterPlayer.StarterCharacterScripts:GetDescendants()) do
+				if (v251.Name == " ") then
+					v61(v251)
+				end
+			end
+			for v252, v253 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if (v253.Name == " ") then
+					v61(v253)
+				end
+			end
+			for v254, v255 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if (v255:IsA("LocalScript") and (string.match(v255.Name, "[1-9]"))) then
+					v61(v255)
+				end
+			end
+			for v256, v257 in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+				if (v257:IsA("LocalScript") and (string.match(v257.Name, "[1-9]"))) then
+					v61(v257)
+				end
+			end
+			for v258, v259 in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+				if (v259.Name == "CheckPlayerW") then
+					v61(v259)
+				end
+			end
+			for v260, v261 in pairs(game.StarterGui.Start:GetChildren()) do
+				if (v261.Name == "CheckPlayerW") then
+					v61(v261)
+				end
+			end
+			for v262, v263 in pairs(game.StarterPlayer.StarterCharacterScripts:GetDescendants()) do
+				if (v263.Name == " ") then
+					v61(v263)
+				end
+			end
+		end
+	)
+if v5 then
+	v10(
+		"Anti Cheat",
+		"Hello world! We successfully bypassed the Anti Cheat for you <3",
+		"http://www.roblox.com/asset/?id=18878611160"
+	)
+else
+	game.Players.LocalPlayer:Kick("Please Rejoin to retry the script. [Report Bugs in Discord]")
+end
+local v12
+local v13
+local v14 = false
+local v15 = game.Workspace.TPSSystem.TPS
+local v16 = game.Workspace.TPSSystem.TPS.Sound
+local v17
+local v18 = game:GetService("UserInputService")
+local v19 =
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Skinny-yz/Librarys/main/NewLibrary/MainInterface.lua"))()
+local v20 =
+	v19:CreateWindow(
+		{
+			Title = "???",
+			Theme = "Dark",
+			Size = UDim2.fromOffset(600, 400),
+			Transparency = 0,
+			Blurring = true,
+			MinimizeKeybind = Enum.KeyCode.End
+		}
+	)
+local v21 = {
+	Light = {
+		Primary = Color3.fromRGB(232, 232, 232),
+		Secondary = Color3.fromRGB(255, 255, 255),
+		Component = Color3.fromRGB(245, 245, 245),
+		Interactables = Color3.fromRGB(235, 235, 235),
+		Tab = Color3.fromRGB(50, 50, 50),
+		Title = Color3.fromRGB(0, 0, 0),
+		Description = Color3.fromRGB(100, 100, 100),
+		Shadow = Color3.fromRGB(255, 255, 255),
+		Outline = Color3.fromRGB(210, 210, 210),
+		Icon = Color3.fromRGB(100, 100, 100)
+	},
+	Dark = {
+		Primary = Color3.fromRGB(30, 30, 30),
+		Secondary = Color3.fromRGB(35, 35, 35),
+		Component = Color3.fromRGB(40, 40, 40),
+		Interactables = Color3.fromRGB(45, 45, 45),
+		Tab = Color3.fromRGB(200, 200, 200),
+		Title = Color3.fromRGB(240, 240, 240),
+		Description = Color3.fromRGB(200, 200, 200),
+		Shadow = Color3.fromRGB(0, 0, 0),
+		Outline = Color3.fromRGB(40, 40, 40),
+		Icon = Color3.fromRGB(220, 220, 220)
+	},
+	Void = {
+		Primary = Color3.fromRGB(15, 15, 15),
+		Secondary = Color3.fromRGB(20, 20, 20),
+		Component = Color3.fromRGB(25, 25, 25),
+		Interactables = Color3.fromRGB(30, 30, 30),
+		Tab = Color3.fromRGB(200, 200, 200),
+		Title = Color3.fromRGB(240, 240, 240),
+		Description = Color3.fromRGB(200, 200, 200),
+		Shadow = Color3.fromRGB(0, 0, 0),
+		Outline = Color3.fromRGB(40, 40, 40),
+		Icon = Color3.fromRGB(220, 220, 220)
+	}
+}
+v20:SetTheme(v21.Void)
+local v22 = v20:AddTab({Title = "Reach & Reacts", Section = "", Icon = "rbxassetid://10734941018"})
+v20:AddSection({Name = "                                               W-Skinny Hub PC                 ", Tab = v22})
+v20:AddSection({Name = "Reach", Tab = v22})
+v20:AddInput(
+	{
+		Title = "Reach[R6]",
+		Description = "Input the reach Size",
+		Tab = v22,
+		Callback = function(v67)
+			local function v68(v264)
+				if (v264 and v264.Destroy) then
+					v264:Destroy()
+				end
+			end
+			local function v69(v265)
+				if v265 then
+					local v610 = v265:FindFirstChild("BannedPlayer")
+					if v610 then
+						v68(v610)
+						print("O caminho 'BannedPlayer' foi destruÃ­do com sucesso em:", v265.Name)
+					else
+						print("O objeto 'BannedPlayer' nÃ£o foi encontrado em:", v265.Name)
+					end
+				else
+					print("O caminho nÃ£o foi encontrado.")
+				end
+			end
+			local v70 = game.ReplicatedStorage:FindFirstChild("PlayerSave")
+			v69(v70)
+			local v71 = game.Players.LocalPlayer.Name
+			local v72 = game.Lighting:FindFirstChild(v71)
+			v69(v72)
+			for v266, v267 in pairs(game:GetService("Workspace").FE.Settings:GetChildren()) do
+				if (v267.Name == "BName") then
+					v68(v267)
+				end
+			end
+			local function v73(v268)
+				wait(0.5)
+				for v484, v485 in pairs(v268:GetChildren()) do
+					if (v485.Name == " ") then
+						v68(v485)
+					end
+				end
+			end
+			game.Players.LocalPlayer.CharacterAdded:Connect(
+				function(v269)
+					v73(v269)
+				end
+			)
+			for v270, v271 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if
+					((v271.Name == " ") or
+						(v271:IsA("LocalScript") and (string.match(v271.Name, "%d") or string.match(v271.Name, " "))))
+				then
+					v68(v271)
+				end
+			end
+			for v272, v273 in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+				if ((v273.Name == "CheckPlayerW") or (v273.Name == "Gradient")) then
+					v68(v273)
+				end
+			end
+			for v274, v275 in pairs(game.StarterGui.Start:GetChildren()) do
+				if ((v275.Name == "CheckPlayerW") or (v275.Name == "Gradient")) then
+					v68(v275)
+				end
+			end
+			for v276, v277 in pairs(game.StarterPlayer.StarterCharacterScripts:GetDescendants()) do
+				if (v277.Name == " ") then
+					v68(v277)
+				end
+			end
+			for v278, v279 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if (v279.Name == " ") then
+					v68(v279)
+				end
+			end
+			for v280, v281 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if (v281:IsA("LocalScript") and string.match(v281.Name, "[1-9]")) then
+					v68(v281)
+				end
+			end
+			for v282, v283 in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+				if (v283:IsA("LocalScript") and string.match(v283.Name, "[1-9]")) then
+					v68(v283)
+				end
+			end
+			for v284, v285 in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+				if (v285.Name == "CheckPlayerW") then
+					v68(v285)
+				end
+			end
+			for v286, v287 in pairs(game.StarterGui.Start:GetChildren()) do
+				if (v287.Name == "CheckPlayerW") then
+					v68(v287)
+				end
+			end
+			for v288, v289 in pairs(game.StarterPlayer.StarterCharacterScripts:GetDescendants()) do
+				if (v289.Name == " ") then
+					v68(v289)
+				end
+			end
+			game.Players.LocalPlayer.CharacterAdded:Connect(
+				function(v290)
+					v73(v290)
+				end
+			)
+			local v74 = {Bigfoot = {Enabled = true, Studs = v67}}
+			if v74.Bigfoot.Enabled then
+				if (game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 2) then
+					game.Players.LocalPlayer.Character["Left Leg"].Massless = true
+					local v667 = Instance.new("Part", game.Players.LocalPlayer.Character)
+					v667.Name = "Left Leg"
+					v667.CanCollide = false
+					v667.Color = game.Players.LocalPlayer.Character["Left Leg"].Color
+					v667.Size = Vector3.new(1, 2, 1)
+					v667.Locked = true
+					v667.Position = game.Players.LocalPlayer.Character["Left Leg"].Position
+					local v676 = Instance.new("Attachment", v667)
+					v676.Name = "LeftFootAttachment"
+					v676.Position = Vector3.new(0, -1, 0)
+					local v679 = Instance.new("Motor6D", game.Players.LocalPlayer.Character.Torso)
+					v679.Name = "Fake Left Hip"
+					v679.C0 = CFrame.new(-1, -1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+					v679.C1 = CFrame.new(-0.5, 1, 0, 0, 0, -1, 0, 1, 0, 1, 0, 0)
+					v679.CurrentAngle = 0
+					v679.DesiredAngle = 0
+					v679.MaxVelocity = 0.1
+					v679.Part0 = game.Players.LocalPlayer.Character.Torso
+					v679.Part1 = v667
+					game.Players.LocalPlayer.Character["Left Leg"].Massless = true
+					game.Players.LocalPlayer.Character["Left Leg"].Size =
+						Vector3.new(v74.Bigfoot.Studs, 2, v74.Bigfoot.Studs)
+					game.Players.LocalPlayer.Character["Left Leg"].Transparency = 2
+				elseif (game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 1) then
+					game.Players.LocalPlayer.Character["Right Leg"].Massless = true
+					local v732 = Instance.new("Part", game.Players.LocalPlayer.Character)
+					v732.Name = "Right Leg"
+					v732.CanCollide = false
+					v732.Color = game.Players.LocalPlayer.Character["Right Leg"].Color
+					v732.Size = Vector3.new(1, 2, 1)
+					v732.Locked = true
+					v732.Position = game.Players.LocalPlayer.Character["Right Leg"].Position
+					local v741 = Instance.new("Attachment", v732)
+					v741.Name = "RightFootAttachment"
+					v741.Position = Vector3.new(0, -1, 0)
+					local v744 = Instance.new("Motor6D", game.Players.LocalPlayer.Character.Torso)
+					v744.Name = "Fake Right Hip"
+					v744.C0 = CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, "-0", -1, 0, 0)
+					v744.C1 = CFrame.new(0.5, 1, 0, 0, 0, 1, 0, 1, "-0", -1, 0, 0)
+					v744.CurrentAngle = 0
+					v744.DesiredAngle = 0
+					v744.MaxVelocity = 0.1
+					v744.Part0 = game.Players.LocalPlayer.Character.Torso
+					v744.Part1 = v732
+					game.Players.LocalPlayer.Character["Right Leg"].Massless = true
+					game.Players.LocalPlayer.Character["Right Leg"].Size =
+						Vector3.new(v74.Bigfoot.Studs, 2, v74.Bigfoot.Studs)
+					game.Players.LocalPlayer.Character["Right Leg"].Transparency = 2
+				end
+			else
+				game.Players.LocalPlayer.Character["Right Leg"].Massless = true
+				game.Players.LocalPlayer.Character["Right Leg"].Size = Vector3.new(1, 2, 1)
+				game.Players.LocalPlayer.Character["Right Leg"].Transparency = 2
+				game.Players.LocalPlayer.Character["Left Leg"].Massless = true
+				game.Players.LocalPlayer.Character["Left Leg"].Size = Vector3.new(1, 2, 1)
+				game.Players.LocalPlayer.Character["Left Leg"].Transparency = 2
+				for v611, v612 in pairs({LeftSkinny, RightSkinny, LeftFoot, RightFoot}) do
+					if v612 then
+						v612:Destroy()
+					end
+				end
+				for v613, v614 in pairs(game.Players.LocalPlayer.Character.Torso:GetDescendants()) do
+					if ((v614.Name == "Fake Left Hip") or (v614.Name == "Fake Right Hip")) then
+						v614:Destroy()
+					end
+				end
+			end
+			v20:Notify({Title = "Success!", Description = "Reach has been successfully activated!", Duration = 5})
+		end
+	}
+)
+v20:AddSection({Name = "Reach V2", Tab = v22})
+v20:AddInput(
+	{
+		Title = "Reach[15]",
+		Description = "Input the reach Size",
+		Tab = v22,
+		Callback = function(v75)
+			for v291, v292 in pairs(game:GetService("Workspace").FE.Settings:GetChildren()) do
+				if (v292.Name == "BName") then
+					v292:Destroy()
+				end
+			end
+			for v293, v294 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if (v294.Name == " ") then
+					v294:Destroy()
+				end
+			end
+			for v295, v296 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if (v296:IsA("LocalScript") and (string.match(v296.Name, "%d") or string.match(v296.Name, " "))) then
+					v296:Destroy()
+				end
+			end
+			for v297, v298 in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+				if (v298:IsA("LocalScript") and (string.match(v298.Name, "%d") or string.match(v298.Name, " "))) then
+					v298:Destroy()
+				end
+			end
+			for v299, v300 in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+				if (v300.Name == "CheckPlayerW") then
+					v300:Destroy()
+				end
+			end
+			for v301, v302 in pairs(game.StarterGui.Start:GetChildren()) do
+				if (v302.Name == "CheckPlayerW") then
+					v302:Destroy()
+				end
+			end
+			for v303, v304 in pairs(game.StarterPlayer.StarterCharacterScripts:GetDescendants()) do
+				if (v304.Name == " ") then
+					v304:Destroy()
+				end
+			end
+			game.Players.LocalPlayer.CharacterAdded:Connect(
+				function(v305)
+					wait(0.5)
+					for v492, v493 in pairs(v305:GetChildren()) do
+						if (v493.Name == " ") then
+							v493:Destroy()
+						end
+					end
+				end
+			)
+			for v306, v307 in pairs(game.StarterGui.Start:GetChildren()) do
+				if (v307.Name == "Gradient") then
+					v307:Destroy()
+				end
+			end
+			for v308, v309 in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+				if (v309.Name == "Gradient") then
+					v309:Destroy()
+				end
+			end
+			local v76 = game.Players.LocalPlayer
+			local v77 = v76.Character
+			local v78 = v77:FindFirstChild("RightLowerLeg")
+			local v79 = v77:FindFirstChild("LeftLowerLeg")
+			local v80 = v77:FindFirstChild("UpperTorso")
+			local v81 = v77:FindFirstChild("LowerTorso")
+			if (game.Lighting[game.Players.LocalPlayer.Name].PreferredFoot.Value == 1) then
+				v78.Massless = true
+				v78.Size = Vector3.new(v75, 2, v75)
+				v78.Transparency = 1
+				local v497 = Instance.new("Part")
+				v497.Name = "RightLowerLeg"
+				v497.CanCollide = false
+				v497.Color = v78.Color
+				v497.Size = Vector3.new(1, 2, 1)
+				v497.Locked = true
+				v497.Position = v78.Position
+				v497.Transparency = 1
+				v497.Parent = v77
+				local v508 = Instance.new("Attachment")
+				v508.Name = "RightFootAttachment"
+				v508.Position = Vector3.new(0, -1, 0)
+				v508.Parent = v497
+				local v512 = Instance.new("Motor6D")
+				v512.Name = "Fake Right Hip"
+				v512.C0 = CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, "-0", -1, 0, 0)
+				v512.C1 = CFrame.new(0.5, 1, 0, 0, 0, 1, 0, 1, "-0", -1, 0, 0)
+				v512.CurrentAngle = 0
+				v512.DesiredAngle = 0
+				v512.MaxVelocity = 0.1
+				v512.Part0 = v81
+				v512.Part1 = v497
+				v512.Parent = v80
+			else
+				v79.Massless = true
+				v79.Size = Vector3.new(v75, 2, v75)
+				v79.Transparency = 1
+				local v525 = Instance.new("Part")
+				v525.Name = "LeftLowerLeg"
+				v525.CanCollide = false
+				v525.Color = v79.Color
+				v525.Size = Vector3.new(1, 2, 1)
+				v525.Locked = true
+				v525.Position = v79.Position
+				v525.Transparency = 1
+				v525.Parent = v77
+				local v536 = Instance.new("Attachment")
+				v536.Name = "LeftFootAttachment"
+				v536.Position = Vector3.new(0, -1, 0)
+				v536.Parent = v525
+				local v540 = Instance.new("Motor6D")
+				v540.Name = "Fake Left Hip"
+				v540.C0 = CFrame.new(1, -1, 0, 0, 0, 1, 0, 1, "-0", -1, 0, 0)
+				v540.C1 = CFrame.new(0.5, 1, 0, 0, 0, 1, 0, 1, "-0", -1, 0, 0)
+				v540.CurrentAngle = 0
+				v540.DesiredAngle = 0
+				v540.MaxVelocity = 0.1
+				v540.Part0 = v81
+				v540.Part1 = v525
+				v540.Parent = v80
+			end
+			v20:Notify({Title = "Success!", Description = "Reach has been successfully activated!", Duration = 5})
+		end
+	}
+)
+v20:AddSection({Name = "React Functions", Tab = v22})
+v20:AddParagraph(
+	{
+		Title = "About Reacts",
+		Description = "This should improve your reaction, there is only a small amount of range added just to tweak the reaction to be a bit better, if you are still finding it hard to do skills it is probably your ping. if problems still occur please send me a direct message - skinny_yz",
+		Tab = v22
+	}
+)
+v20:AddButton(
+	{
+		Title = "Skinny React[Left Leg]",
+		Description = "React especially to me :D",
+		Tab = v22,
+		Callback = function()
+			local v82 = game:GetService("Players").LocalPlayer
+			local v83 = v82:GetMouse()
+			local v84 = game.Players.LocalPlayer.Character["Left Leg"]
+			local v82 = game.Players.LocalPlayer
+			local v83 = v82:GetMouse()
+			v83.KeyDown:connect(
+				function()
+					local v310 = nil
+					local v311 = game:GetService("StarterGui")
+					local v312 = game:GetService("StarterGui")
+					local v313 = {
+						[1] = v310,
+						[2] = Vector3.new(math.huge, math.huge, math.huge),
+						[3] = CFrame.new(Vector3.new(0, 0, 0))
+					}
+					local function v314()
+						for v615, v616 in pairs(game.Workspace:GetDescendants()) do
+							if (v616:IsA("BasePart") or v616:IsA("Part")) then
+								local v725 =
+									Vector3.new(
+										math.floor(v616.Size.X - 2.5),
+										math.floor(v616.Size.Y - 2.5),
+										math.floor(v616.size.Z - 2.5)
+									)
+								if (v725 == Vector3.new(0, 0, 0)) then
+									v616 = v616
+								end
+							end
+						end
+					end
+					game:GetService("RunService").ChildAdded:Connect(
+						function()
+							while task.wait(0.001) do
+								for v691, v692 in pairs(game:GetService("ReplicatedStorage"):GetDescendants()) do
+									if (string.find(v692.Name, "React") and v692:IsA("RemoteEvent")) then
+										v692:FireServer(unpack(v313))
+									end
+								end
+							end
+							v83.KeyDown:connect(
+								function(v617)
+									v617:lower()
+									if (v617 == "k") then
+										v314()
+									end
+								end
+							)
+							local function v550()
+								local v618 = Instance.New("LocalScript", TextLabel)
+								wait(8999999488)
+								local v619 = game:GetService("TweenService")
+								local v620 = TweenInfo.new(0.8, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut)
+								local v621 = {Position = UDim2.new(0.819, 0, 0.815, 0)}
+								local v622 = v619.Create(v618.Parent, v620, v621)
+								v622:Play()
+								v618.Parent.MouseEnter:Connect(
+									function()
+										local v693 =
+											TweenInfo.new(
+												0.1,
+												Enum.EasingStyle.Quad,
+												Enum.EasingDirection.InOut,
+												0,
+												false,
+												0
+											)
+										local v694 = v619:Create(v618.Parent, v693({TextTransparency = 0}))
+										v694:Play()
+									end
+								)
+								v618.Parent.MouseLeave:Connect(
+									function()
+										local v695 =
+											TweenInfo.new(
+												0.1,
+												Enum.EasingStyle.Quad,
+												Enum.EasingDirection.InOut,
+												0,
+												false,
+												0
+											)
+										local v696 = v619.Create(v618.Parent, v695, {TextTransparency = 0.5})
+										v696:Play()
+									end
+								)
+							end
+							local function v551()
+								local v623 = Instance.new("LocalScript", TextLabel_2)
+								wait(8999999488)
+								local v624 = game.GetService("TweenService")
+								local v625 = TweenInfo.new(1.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out)
+								local v626 = {Position = UDim2.new(0.81, 0, 0.899, 0)}
+								local v627 = v624:Create(v623.Parent, v625, v626)
+								v627:Play()
+								v623.Parent.MouseEnter:Connect(
+									function()
+										local v697 =
+											TweenInfo.new(
+												0.1,
+												Enum.EasingStyle.Quad,
+												Enum.EasingDirection.InOut,
+												0,
+												false,
+												0
+											)
+										local v698 = v624:Create(v623.Parent, v697, {TextTransparency = 0})
+										v698:Play()
+									end
+								)
+								v623.Parent.MouseLeave:Connect(
+									function()
+										local v699 =
+											TweenInfo.new(
+												0.1,
+												Enum.EasingStyle.Quad,
+												Enum.EasingDirectionInOut,
+												0,
+												false,
+												0
+											)
+										local v700 = v624:Create(v623.Parent, v699({TextTransparency = 0.5}))
+										v700:Play()
+									end
+								)
+							end
+							coroutine.wrap(v551)
+							v314()
+						end
+					)
+				end
+			)
+			v20:Notify(
+				{Title = "Success!", Description = "Skinny's React has been successfully activated!", Duration = 5}
+			)
+		end
+	}
+)
+v20:AddButton(
+	{
+		Title = "Skinny React[Right Leg]",
+		Description = "React especially to me :D",
+		Tab = v22,
+		Callback = function()
+			local v85 = game:GetService("Players").LocalPlayer
+			local v86 = v85:GetMouse()
+			local v87 = game.Players.LocalPlayer.Character["Right Leg"]
+			local v85 = game.Players.LocalPlayer
+			local v86 = v85:GetMouse()
+			v86.KeyDown:connect(
+				function()
+					local v315 = nil
+					local v316 = game:GetService("StarterGui")
+					local v317 = game:GetService("StarterGui")
+					local v318 = {
+						[1] = v315,
+						[2] = Vector3.new(math.huge, math.huge, math.huge),
+						[3] = CFrame.new(Vector3.new(0, 0, 0))
+					}
+					local function v319()
+						for v628, v629 in pairs(game.Workspace:GetDescendants()) do
+							if (v629:IsA("BasePart") or v629:IsA("Part")) then
+								local v726 =
+									Vector3.new(
+										math.floor(v629.Size.X - 2.5),
+										math.floor(v629.Size.Y - 2.5),
+										math.floor(v629.size.Z - 2.5)
+									)
+								if (v726 == Vector3.new(0, 0, 0)) then
+									v629 = v629
+								end
+							end
+						end
+					end
+					game:GetService("RunService").ChildAdded:Connect(
+						function()
+							while task.wait(0.001) do
+								for v701, v702 in pairs(game:GetService("ReplicatedStorage"):GetDescendants()) do
+									if (string.find(v702.Name, "React") and v702:IsA("RemoteEvent")) then
+										v702:FireServer(unpack(v318))
+									end
+								end
+							end
+							v86.KeyDown:connect(
+								function(v630)
+									v630:lower()
+									if (v630 == "k") then
+										v319()
+									end
+								end
+							)
+							local function v552()
+								local v631 = Instance.New("LocalScript", TextLabel)
+								wait(8999999488)
+								local v632 = game:GetService("TweenService")
+								local v633 = TweenInfo.new(0.8, Enum.EasingStyle.Quint, Enum.EasingDirection.InOut)
+								local v634 = {Position = UDim2.new(0.819, 0, 0.815, 0)}
+								local v635 = v632.Create(v631.Parent, v633, v634)
+								v635:Play()
+								v631.Parent.MouseEnter:Connect(
+									function()
+										local v703 =
+											TweenInfo.new(
+												0.1,
+												Enum.EasingStyle.Quad,
+												Enum.EasingDirection.InOut,
+												0,
+												false,
+												0
+											)
+										local v704 = v632:Create(v631.Parent, v703({TextTransparency = 0}))
+										v704:Play()
+									end
+								)
+								v631.Parent.MouseLeave:Connect(
+									function()
+										local v705 =
+											TweenInfo.new(
+												0.1,
+												Enum.EasingStyle.Quad,
+												Enum.EasingDirection.InOut,
+												0,
+												false,
+												0
+											)
+										local v706 = v632.Create(v631.Parent, v705, {TextTransparency = 0.5})
+										v706:Play()
+									end
+								)
+							end
+							local function v553()
+								local v636 = Instance.new("LocalScript", TextLabel_2)
+								wait(8999999488)
+								local v637 = game.GetService("TweenService")
+								local v638 = TweenInfo.new(1.3, Enum.EasingStyle.Quart, Enum.EasingDirection.Out)
+								local v639 = {Position = UDim2.new(0.81, 0, 0.899, 0)}
+								local v640 = v637:Create(v636.Parent, v638, v639)
+								v640:Play()
+								v636.Parent.MouseEnter:Connect(
+									function()
+										local v707 =
+											TweenInfo.new(
+												0.1,
+												Enum.EasingStyle.Quad,
+												Enum.EasingDirection.InOut,
+												0,
+												false,
+												0
+											)
+										local v708 = v637:Create(v636.Parent, v707, {TextTransparency = 0})
+										v708:Play()
+									end
+								)
+								v636.Parent.MouseLeave:Connect(
+									function()
+										local v709 =
+											TweenInfo.new(
+												0.1,
+												Enum.EasingStyle.Quad,
+												Enum.EasingDirectionInOut,
+												0,
+												false,
+												0
+											)
+										local v710 = v637:Create(v636.Parent, v709({TextTransparency = 0.5}))
+										v710:Play()
+									end
+								)
+							end
+							coroutine.wrap(v553)
+							v319()
+						end
+					)
+				end
+			)
+			v20:Notify(
+				{Title = "Success!", Description = "Skinny's React has been successfully activated!", Duration = 5}
+			)
+		end
+	}
+)
+v20:AddButton(
+	{
+		Title = "Goalkeeper React",
+		Description = "Improve your saves by making them more accurate",
+		Tab = v22,
+		Callback = function()
+			_G.Vector = Vector3.new(math.huge, math.huge, math.huge)
+			local v88 = hookmetamethod or function(v320, v321, v322)
+				return v322
+			end
+			local v89 = getnamecallmethod or function()
+				return ""
+			end
+			local v90 = checkcaller or function()
+				return false
+			end
+			if not v88 then
+				error("hookmetamethod nÃ£o estÃ¡ disponÃ­vel. reporte para Skinny")
+				return
+			end
+			local v91
+			v91 =
+				v88(
+					game,
+					"__namecall",
+					function(v323, ...)
+						local v324 = {...}
+						local v325 = v89()
+						if (not v90() and (v325 == "FireServer") and (v323.Name == "Kick")) then
+							v324[6] = _G.Vector
+							return v91(v323, unpack(v324))
+						end
+						return v91(v323, ...)
+					end
+				)
+			v20:Notify(
+				{Title = "Success!", Description = "Goalkeeper React has been successfully activated!", Duration = 5}
+			)
+		end
+	}
+)
+v20:AddButton(
+	{
+		Title = "Attacker React[For Shoot]",
+		Description = "Your reaction to kicking and performing skills becomes more precise",
+		Tab = v22,
+		Callback = function()
+			_G.Vector = Vector3.new(math.huge, math.huge, math.huge)
+			local v92 = hookmetamethod or function(v326, v327, v328)
+				return v328
+			end
+			local v93 = getnamecallmethod or function()
+				return ""
+			end
+			local v94 = checkcaller or function()
+				return false
+			end
+			if not v92 then
+				error("hookmetamethod nÃ£o estÃ¡ disponÃ­vel.")
+				return
+			end
+			local v95
+			v95 =
+				v92(
+					game,
+					"__namecall",
+					function(v329, ...)
+						local v330 = {...}
+						local v331 = v93()
+						if (not v94() and (v331 == "FireServer") and (tostring(v329) == "Shoot")) then
+							v330[6] = _G.Vector
+							return v95(v329, unpack(v330))
+						end
+						return v95(v329, ...)
+					end
+				)
+			v20:Notify(
+				{Title = "Success!", Description = "Attacker React has been successfully activated!", Duration = 5}
+			)
+		end
+	}
+)
+v20:AddButton(
+	{
+		Title = "Midfielder React[For Dribble]",
+		Description = "Your reaction to pass and dribble becomes more precise",
+		Tab = v22,
+		Callback = function()
+			local v96 = game:GetService("Players").LocalPlayer
+			local v97 = hookmetamethod or function(v332, v333, v334)
+				return v334
+			end
+			local v98 = getnamecallmethod or function()
+				return ""
+			end
+			local v99 = checkcaller or function()
+				return false
+			end
+			if not v97 then
+				error("hookmetamethod nÃ£o estÃ¡ disponÃ­vel.")
+				return
+			end
+			local v100
+			v100 =
+				v97(
+					game,
+					"__namecall",
+					function(v335, ...)
+						local v336 = {...}
+						local v337 = v98()
+						if (not v99() and (v337 == "FireServer") and (tostring(v335) == "Dribble")) then
+							v336[2] = v96.Character.Humanoid.LLCL
+							return v100(v335, unpack(v336))
+						end
+						return v100(v335, ...)
+					end
+				)
+			v20:Notify(
+				{Title = "Success!", Description = "Midfielder React has been successfully activated!", Duration = 5}
+			)
+		end
+	}
+)
+v20:AddButton(
+	{
+		Title = "Alz React[For All]",
+		Description = "Everything you do has an extra react.",
+		Tab = v22,
+		Callback = function()
+			loadstring(game:HttpGet("https://pastebin.com/raw/GrePU9TQ"))()
+			v20:Notify({Title = "Success!", Description = "Alz React has been successfully activated!", Duration = 5})
+		end
+	}
+)
+local v23 = v20:AddTab({Title = "Gamepasses", Section = "", Icon = "rbxassetid://10734983868"})
+v20:AddButton(
+	{
+		Title = "Enable GamepassController",
+		Description = "Probably Allows You To Use Gamepasses From Players",
+		Tab = v23,
+		Callback = function()
+			local v101 = hookmetamethod or function(v338, v339, v340)
+				return v340
+			end
+			local v102 = checkcaller or function()
+				return false
+			end
+			if not v101 then
+				error("hookmetamethod nÃ£o estÃ¡ disponÃ­vel.")
+				return
+			end
+			local v103
+			v103 =
+				v101(
+					game,
+					"__index",
+					function(v341, v342)
+						if
+							((tostring(v341) == "GamePassController") or (tostring(v341) == "GamePassControllerFix") or
+								(tostring(v341) == "GamePassC"))
+						then
+							if (tostring(v342) == "Enabled") then
+								return true
+							elseif (tostring(v342) == "Disabled") then
+								return false
+							end
+						end
+						return v103(v341, v342)
+					end
+				)
+			wait(0.5)
+			game:GetService("Workspace").FE.Store.Check:FireServer()
+			v20:Notify({Title = "Success!!", Description = "Successs Actived Gamepass Controller", Duration = 5})
+		end
+	}
+)
+local function v24(v104, v105)
+	v20:Notify({Title = "Success!!", Description = "Successfully " .. v104 .. " " .. v105 .. " Gamepass", Duration = 5})
+end
+v20:AddToggle(
+	{
+		Title = "Enable Blue Flame",
+		Description = "It gives you the Blue Flame gamepass, but when you reset it you need to activate it again",
+		Tab = v23,
+		Callback = function(v106)
+			if v106 then
+				game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.Tick.Visible = true
+				game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.BlueFlame.Style =
+					"RobloxRoundButton"
+				game:GetService("Players").LocalPlayer.PlayerGui.Start.PowerShot.Image = "rbxassetid://0"
+				game:GetService("Players").LocalPlayer.Backpack.FValue.Value = 2
+				v24("activated", "Blue Flame")
+			else
+				game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.Tick.Visible = false
+				game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.BlueFlame.Style =
+					"RobloxRoundDefaultButton"
+				game:GetService("Players").LocalPlayer.PlayerGui.Start.PowerShot.Image = "rbxassetid://0"
+				game:GetService("Players").LocalPlayer.Backpack.FValue.Value = 1
+				v24("deactivated", "Blue Flame")
+			end
+		end
+	}
+)
+v20:AddToggle(
+	{
+		Title = "Enable More Curve",
+		Description = "It gives you the More Curve gamepass.",
+		Tab = v23,
+		Callback = function(v107)
+			if v107 then
+				game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.WoodenFloor.Tick.Visible =
+					true
+				game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.WoodenFloor.WoodenFloor.Style =
+					"RobloxRoundButton"
+				local v564 = game.Players.LocalPlayer.Character.Humanoid
+				v12 =
+					v564.AnimationPlayed:Connect(
+						function(v645)
+							local v646 = {
+								"OldMKickL",
+								"OldMKick",
+								"OldLKickL",
+								"OldLKick",
+								"MKickL",
+								"MKick",
+								"LKickL",
+								"LKick",
+								"OldDribbleL",
+								"OldDribble",
+								"DribbleL",
+								"Dribble"
+							}
+							if table.find(v646, v645.Name) then
+								if
+									((game.Players.LocalPlayer.Character.HumanoidRootPart.Position -
+										game.Workspace.TPSSystem.TPS.Position).Magnitude < 155.45)
+								then
+									local v758 = game.Players.LocalPlayer.Backpack.Curving.Value
+									if ((v758 == 155.45) or (v758 == 154.45)) then
+										wait(0.1)
+										local v762 = game:GetService("Workspace").TPSSystem.TPS
+										local v763 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+										local v764
+										if (v758 == 155.45) then
+											v764 = game:GetService("Workspace").FE.Actions.KickC1
+										elseif (v758 == 154.45) then
+											v764 = game:GetService("Workspace").FE.Actions.KickC2
+										end
+										if v764 then
+											v764:FireServer(v762, v763)
+											wait(0.2)
+											v764:FireServer(v762, v763)
+										end
+									end
+								end
+							end
+						end
+					)
+				v24("activated", "More Curve")
+			else
+				if v12 then
+					v12:Disconnect()
+				end
+				game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.WoodenFloor.Tick.Visible =
+					false
+				game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.WoodenFloor.WoodenFloor.Style =
+					"RobloxRoundDefaultButton"
+				v24("deactivated", "More Curve")
+			end
+		end
+	}
+)
+v20:AddToggle(
+	{
+		Title = "Enable Powerfull Tackle",
+		Description = "It gives you the Powerfull Tackle gamepass, if you don't know how to use it, don't activate it",
+		Tab = v23,
+		Callback = function(v108)
+			local v109 = game:GetService("Players").LocalPlayer
+			local v110 = v109:WaitForChild("PlayerGui")
+			local v111 = v110:WaitForChild("Start")
+			local v112 = v111:WaitForChild("GamePassMenu")
+			local v113 = v112:WaitForChild("Items"):WaitForChild("RandomWeather")
+			local v114 = v111:FindFirstChild("TackleGamePass") or Instance.new("BoolValue", v111)
+			v114.Name = "TackleGamePass"
+			v114.Value = false
+			if v108 then
+				v113.Tick.Visible = true
+				v113.RandomWeather.Style = "RobloxRoundButton"
+				v114.Value = true
+				local v570 = v109.Character.Humanoid
+				v13 =
+					v570.AnimationPlayed:Connect(
+						function(v647)
+							if table.find({"TackleL", "Tackle", "OldTackleL", "OldTackle"}, v647.Name) then
+								if
+									((v109.Character.HumanoidRootPart.Position - game.Workspace.TPSSystem.TPS.Position).Magnitude <
+										4.87)
+								then
+									wait(0.8)
+									local v759 = game:GetService("Workspace").TPSSystem.TPS
+									local v760 = v109.Character.HumanoidRootPart
+									local v761 = game:GetService("Workspace").FE.Actions.KickG1
+									v761:FireServer(v759, v760, 30, Vector3.new(4000000, 700, 4000000))
+								end
+							end
+						end
+					)
+				v24("activated", "Powerfull Tackle")
+			else
+				v113.Tick.Visible = false
+				v113.RandomWeather.Style = "RobloxRoundDefaultButton"
+				v114.Value = false
+				if v13 then
+					v13:Disconnect()
+				end
+				v24("deactivated", "Powerfull Tackle")
+			end
+		end
+	}
+)
+v20:AddToggle(
+	{
+		Title = "Enable Faster Cooldown",
+		Description = "Reduces the cooldown of Fire from 30 seconds to 30 seconds",
+		Tab = v23,
+		Callback = function(v117)
+			local v118 = game:GetService("Players").LocalPlayer
+			if v117 then
+				v118.PlayerGui.Start.GamePassMenu.Items.Cooldown.Tick.Visible = true
+				v118.PlayerGui.Start.GamePassMenu.Items.Cooldown.Cooldown.Style = "RobloxRoundButton"
+				v118.PlayerGui.Start.PowerShot.PowerValue.Value = 30
+				v24("activated", "Faster Cooldown")
+			else
+				v118.PlayerGui.Start.GamePassMenu.Items.Cooldown.Tick.Visible = false
+				v118.PlayerGui.Start.GamePassMenu.Items.Cooldown.Cooldown.Style = "RobloxRoundDefaultButton"
+				v118.PlayerGui.Start.PowerShot.PowerValue.Value = 60
+				v24("deactivated", "Faster Cooldown")
+			end
+		end
+	}
+)
+v20:AddButton(
+	{
+		Title = "Unlock All Celebrations[Pending Fixed]",
+		Description = "I wonder what this does",
+		Tab = v23,
+		Callback = function()
+			loadstring(game:HttpGet("https://pst.innomi.net/paste/rjnagam6o59qen8eyzkwfvk8/raw"))()
+			v20:Notify({Title = "Success!", Description = "Celebrations Unlocked", Duration = 5})
+		end
+	}
+)
+local v25 = v20:AddTab({Title = "Air Dribble Helper", Section = "", Icon = "rbxassetid://10747374003"})
+v20:AddParagraph(
+	{
+		Title = "How Use Air Dribble Helper",
+		Description = "Air Dribbling helper can be easily configured by you! Below is a list of the best settings for air dribble helper.\nLegit: Size 6\nA little blatant but not so much: Size 8\nBlatant: Size 12",
+		Tab = v25
+	}
+)
+local function v26(v119, v120, v121)
+	local v122 = Instance.new("Part", v119)
+	v122.Name = "TPS"
+	v122.Size = v121.boxsize
+	v122.Anchored = true
+	v122.Transparency = v121.boxtransparency
+	return v122
+end
+local function v27(v129)
+	return {box = {boxsize = Vector3.new(v129, 0, v129), markerOffset = Vector3.new(0, -1, 0), boxtransparency = 1}}
+end
+v20:AddInput(
+	{
+		Title = "Air Dribble Size",
+		Description = "Input the desired size of the air dribble helper",
+		Tab = v25,
+		Callback = function(v130)
+			getgenv().boxsettings = v27(v130)
+			local v132 = game.Workspace.TPSSystem.TPS
+			local v133 = v26(v132.Parent, v132, boxsettings.box)
+			game:GetService("RunService").Stepped:Connect(
+				function(v343)
+					v133.CFrame = CFrame.new(v132.Position + boxsettings.box.markerOffset)
+				end
+			)
+			v20:Notify({Title = "Success!", Description = "Air Dribble Helper Actived!", Duration = 5})
+		end
+	}
+)
+local function v27(v134)
+	return {box = {Size = Vector3.new(v134, v134, v134), markerOffset = Vector3.new(0, v134 / 2, 0)}}
+end
+local function v26(v135, v136, v137)
+	local v138 = Instance.new("Part")
+	v138.Name = "Marker"
+	v138.Size = v137.Size
+	v138.Anchored = true
+	v138.CanCollide = false
+	v138.Transparency = 0.5
+	v138.Parent = v135
+	return v138
+end
+local function v28(v146, v147)
+	v20:AddButton(
+		{
+			Title = v146,
+			Callback = function()
+				getgenv().boxsettings = v27(v147)
+				local v346 = game.Workspace.TPSSystem.TPS
+				local v347 = v26(v346.Parent, v346, boxsettings.box)
+				game:GetService("RunService").Stepped:Connect(
+					function(v580)
+						v347.CFrame = CFrame.new(v346.Position + boxsettings.box.markerOffset)
+					end
+				)
+			end
+		}
+	)
+end
+v28("Air Dribble Helper Legit", 7)
+v28("A little blatant but not so much", 10)
+v28("Blatant", 12)
+v20:AddSection({Name = "Air Dribble Helper V2", Tab = v25})
+local v29 = game:GetService("RunService")
+local v30
+local v31
+local v32 = 0
+v20:AddToggle(
+	{
+		Title = "Enable/Disable Air Dribble Helper",
+		Description = "Choose to enable and disable Air Dribble helper, this is only for v2",
+		Tab = v25,
+		Callback = function(v148)
+			if v148 then
+				getgenv().boxsettings = {
+					box = {
+						boxsize = Vector3.new(v32 or 1, v32 or 1, v32 or 1),
+						markerOffset = Vector3.new(0, -1, 0),
+						boxtransparency = 1
+					}
+				}
+				local v583 = game.Workspace.TPSSystem.TPS
+				local function v584(v648, v649)
+					local v650 = Instance.new("Part")
+					v650.Name = "TPS"
+					v650.Size = getgenv().boxsettings.box.boxsize
+					v650.Anchored = true
+					v650.Transparency = getgenv().boxsettings.box.boxtransparency
+					v650.Parent = v648
+					return v650
+				end
+				local v585 = v584(v583.Parent, v583)
+				v30 =
+					v29.Heartbeat:Connect(
+						function()
+							v585.Size = Vector3.new(v32 or 1, 0, v32 or 1)
+						end
+					)
+				v31 =
+					v29.Heartbeat:Connect(
+						function()
+							v585.CFrame = CFrame.new(v583.Position + getgenv().boxsettings.box.markerOffset)
+						end
+					)
+				v20:Notify({Title = "Success!", Description = "Air Dribble Helper has been Activated!", Duration = 5})
+			else
+				if v30 then
+					v30:Disconnect()
+					v30 = nil
+				end
+				if v31 then
+					v31:Disconnect()
+					v31 = nil
+				end
+				local v586 = game.Workspace.TPSSystem.TPS:FindFirstChild("TPS")
+				if v586 then
+					v586:Destroy()
+				end
+				v20:Notify(
+					{Title = "Deactivated", Description = "Air Dribble Helper has been Deactivated!", Duration = 5}
+				)
+			end
+		end
+	}
+)
+v20:AddInput(
+	{
+		Title = "Air Dribble Size",
+		Description = "Input the desired size of the air dribble helper",
+		Tab = v25,
+		Callback = function(v149)
+			v32 = tonumber(v149) or 1
+			if getgenv().boxsettings then
+				getgenv().boxsettings.box.boxsize = Vector3.new(v32, v32, v32)
+			end
+			v20:Notify({Title = "Success!", Description = "Air Dribble Helper size updated!", Duration = 5})
+		end
+	}
+)
+local v33 = v20:AddTab({Title = "Skills Helpers", Section = "", Icon = "rbxassetid://10723406988"})
+v20:AddParagraph(
+	{
+		Title = "What Is Skills Helpers??",
+		Description = "Skills Helpers are a feature designed to help users who have difficulty doing Simple Skills (Learn How to Make a Broken ZZ MobileðŸ˜¡) More Helpers will be coming soon, but they will only be available for the Paid Version of the Script.",
+		Tab = v33
+	}
+)
+v20:AddSection({Name = "ZZZ & ZZZZ Helper", Tab = v33})
+v20:AddButton(
+	{
+		Title = "Enable ZZZ & ZZZZ Helper",
+		Description = "Looks good, right?",
+		Tab = v33,
+		Callback = function()
+			local v150 = game.Workspace.TPSSystem.TPS
+			v150.Size = Vector3.new(2.89, 2.89, 2.89)
+			getgenv().boxsettings = {
+				box = {boxsize = Vector3.new(9, 0, 9), markerOffset = Vector3.new(0, -1, 0), boxtransparency = 1}
+			}
+			local function v153(v348, v349)
+				local v350 = Instance.new("Part")
+				v350.Name = "TPS"
+				v350.Size = getgenv().boxsettings.box.boxsize
+				v350.Anchored = true
+				v350.Transparency = getgenv().boxsettings.box.boxtransparency
+				v350.Parent = v348
+				return v350
+			end
+			local v154 = v153(v150.Parent, v150)
+			game:GetService("RunService").Stepped:Connect(
+				function()
+					v154.CFrame = CFrame.new(v150.Position + getgenv().boxsettings.box.markerOffset)
+				end
+			)
+			v20:Notify(
+				{Title = "Success!", Description = "ZZZ Helper has been activated! Have fun using it!", Duration = 5}
+			)
+		end
+	}
+)
+v20:AddParagraph(
+	{
+		Title = "About ZZZ & ZZZZ Helper",
+		Description = "It is a function that allows you to have more Chance to make ZZZ & ZZZZ (It gives you a Specific React, Ball Size and an Air Dribble Helper Configuration)",
+		Tab = v33
+	}
+)
+v20:AddSection({Name = "Infinite Dribble Helper", Tab = v33})
+v20:AddToggle(
+	{
+		Title = "Enable Infinite Dribble Helper",
+		Description = "Disable and enable, I recommend using this for alz inf",
+		Tab = v33,
+		Callback = function(v155)
+			v14 = v155
+			if v14 then
+				while v14 do
+					wait()
+					game.Players.LocalPlayer.Backpack.Ground.Value = true
+				end
+				v20:Notify(
+					{
+						Title = "Success!",
+						Description = "ZZZ Helper has been activated! Have fun using it!",
+						Duration = 5
+					}
+				)
+			else
+				wait(1)
+				game.Players.LocalPlayer.Backpack.Ground.Value = false
+				v20:Notify(
+					{
+						Title = "Deactivated",
+						Description = "ZZZ Helper has been deactivated. See you next time!",
+						Duration = 5
+					}
+				)
+			end
+		end
+	}
+)
+v20:AddParagraph(
+	{
+		Title = "About Infinite Dribble Helper",
+		Description = "Infinite Dribble Helper is a feature that allows you to shoot low without having to hold down the low kick button (It also gives you a Specific React)",
+		Tab = v33
+	}
+)
+v20:AddSection({Name = "Infinite Fast Helper", Tab = v33})
+v20:AddButton(
+	{
+		Title = "Enable Auto Inf Fast Helper",
+		Description = "That is great",
+		Tab = v33,
+		Callback = function()
+			local v156 = game:GetService("Players")
+			local v157 = game:GetService("UserInputService")
+			local v158 = game:GetService("Workspace")
+			local v159 = game:GetService("RunService")
+			local v160, v161
+			local v162 = v158:WaitForChild("TPSSystem"):WaitForChild("TPS")
+			local v163 = v158:WaitForChild("TPSSystem"):WaitForChild("TPS")
+			local v164 = false
+			_G.HoldGround = false
+			local function v165()
+				if (v164 and v160 and v161 and v162) then
+					local v661 = v162.Position
+					v161:MoveTo(v661)
+				end
+				if (v163 and v163:IsA("BasePart")) then
+					v163.Velocity = Vector3.new(0, 0, 0)
+				end
+				if _G.HoldGround then
+					if v156.LocalPlayer.Backpack:FindFirstChild("Ground") then
+						v156.LocalPlayer.Backpack.Ground.Value = true
+					end
+				elseif v156.LocalPlayer.Backpack:FindFirstChild("Ground") then
+					v156.LocalPlayer.Backpack.Ground.Value = false
+				end
+			end
+			v157.InputBegan:Connect(
+				function(v359, v360)
+					if (not v360 and (v359.KeyCode == Enum.KeyCode.C)) then
+						v164 = not v164
+						_G.HoldGround = v164
+						if v164 then
+							v160 = v156.LocalPlayer.Character
+							v161 = v160 and v160:FindFirstChild("Humanoid")
+							v20:Notify(
+								{
+									Title = "Activated",
+									Description = "Auto Inf Fast Helper has been activated!",
+									Duration = 5
+								}
+							)
+						else
+							v20:Notify(
+								{
+									Title = "Deactivated",
+									Description = "Auto Inf Fast Helper has been deactivated.",
+									Duration = 5
+								}
+							)
+						end
+					end
+				end
+			)
+			v159.Heartbeat:Connect(v165)
+			v20:Notify({Title = "Enabled", Description = "Auto Inf Fast Helper Enabled", Duration = 5})
+		end
+	}
+)
+local v34 = v20:AddTab({Title = "Ball Modifications", Section = "", Icon = "rbxassetid://10709798174"})
+v20:AddParagraph(
+	{
+		Title = "About Ball Size",
+		Description = "The ball size modifier is simple. You choose the desired size and it will apply to the object (ball), my recommendation is size 2.86",
+		Tab = v34
+	}
+)
+v20:AddInput(
+	{
+		Title = "Input The Ball Size",
+		Description = "Don't use a ball size that is too high, your reach will also increase with this",
+		Tab = v34,
+		Callback = function(v166)
+			game.Workspace.TPSSystem.TPS.Size = Vector3.new(v166, v166, v166)
+			v20:Notify({Title = "Success!", Description = "You ball Size has been set and modified", Duration = 5})
+		end
+	}
+)
+local function v35(v168, v169)
+	game.Workspace.TPSSystem.TPS.Size = Vector3.new(v168, v168, v168)
+	v20:Notify({Title = "Success!", Description = v169, Duration = 5})
+end
+v20:AddButton(
+	{Title = "Best Config", Description = "Set Ball Size to 2.85", Tab = v34, Callback = function()
+		v35(2.85, "Your ball size has been set to 2.85")
+	end}
+)
+v20:AddButton(
+	{Title = "For Inf Fast", Description = "Set Ball Size to 2.65", Tab = v34, Callback = function()
+		v35(2.65, "Your ball size has been set to 2.65")
+	end}
+)
+v20:AddButton(
+	{Title = "Best For Triple/ZZZZ", Description = "Set Ball Size to 3", Tab = v34, Callback = function()
+		v35(3, "Your ball size has been set to 3")
+	end}
+)
+v20:AddSection({Name = "Anti-Ball Fling", Tab = v34})
+v20:AddParagraph(
+	{
+		Title = "About Anti-Ball Fling",
+		Description = "Well, Anti Ball Fling is a script that removes the collision of the ball when you kick it, you can notice this by making a simple loud ZZ. She becomes the same as before (You can see this in the old clips of the ABZ player on TikTok)",
+		Tab = v34
+	}
+)
+v20:AddButton(
+	{
+		Title = "Enable Anti Ball Fling",
+		Description = "Click to Enable, Read About this function before activating",
+		Tab = v34,
+		Callback = function()
+			local v171 = game.Players.LocalPlayer
+			local v172 = game:GetService("RunService")
+			Clip = false
+			wait(0.1)
+			local function v173()
+				if ((Clip == false) and (v171.Character ~= nil)) then
+					for v711, v712 in pairs(v171.Character:GetDescendants()) do
+						if
+							(v712:IsA("BasePart") and (v712.CanCollide == true) and
+								((v712.Name == "Right Leg") or (v712.Name == "Right Arm") or (v712.Name == "Left Arm") or
+									(v712.Name == "Torso")))
+						then
+							v712.CanCollide = false
+						end
+					end
+				end
+			end
+			Noclipping = v172.Stepped:Connect(v173)
+			v20:Notify({Title = "Success!", Description = "Anti-Ball Fling Enabled!", Duration = 5})
+		end
+	}
+)
+v20:AddSection({Name = "Ball Colision", Tab = v34})
+v20:AddToggle(
+	{
+		Title = "Ball Collision",
+		Description = "Enable/Disable collision of the ball",
+		Tab = v34,
+		Callback = function(v174)
+			if v174 then
+				game.Workspace.TPSSystem.TPS.CanCollide = false
+				v20:Notify(
+					{Title = "Collision Disabled", Description = "Ball collision has been disabled.", Duration = 5}
+				)
+			else
+				game.Workspace.TPSSystem.TPS.CanCollide = true
+				v20:Notify(
+					{Title = "Collision Enabled", Description = "Ball collision has been enabled.", Duration = 5}
+				)
+			end
+		end
+	}
+)
+v20:AddSection({Name = "Ball Texture/Sound", Tab = v34})
+local function v36(v175, v176)
+	local v177 = {
+		Default = {
+			"rbxassetid://1731401359",
+			"rbxassetid://1731401359",
+			"rbxassetid://1731401811",
+			"rbxassetid://1731401811",
+			"rbxassetid://1731401359",
+			"rbxassetid://1731401359"
+		},
+		["Adidas Brazuca"] = {
+			"http://www.roblox.com/asset/?id=137668136",
+			"http://www.roblox.com/asset/?id=137668129",
+			"http://www.roblox.com/asset/?id=137668136",
+			"http://www.roblox.com/asset/?id=137668136",
+			"http://www.roblox.com/asset/?id=137668136",
+			"http://www.roblox.com/asset/?id=137668136"
+		},
+		["Adidas Jabulani"] = {
+			"http://www.roblox.com/asset/?id=76614961",
+			"http://www.roblox.com/asset/?id=76614961",
+			"http://www.roblox.com/asset/?id=76614961",
+			"http://www.roblox.com/asset/?id=76614961",
+			"http://www.roblox.com/asset/?id=76614961",
+			"http://www.roblox.com/asset/?id=76614961"
+		},
+		["Adidas Rose World Cup Ball"] = {
+			"http://www.roblox.com/asset/?id=17277667014",
+			"http://www.roblox.com/asset/?id=17277667014",
+			"http://www.roblox.com/asset/?id=17277667014",
+			"http://www.roblox.com/asset/?id=17277667014",
+			"http://www.roblox.com/asset/?id=17277667014",
+			"http://www.roblox.com/asset/?id=17277667014"
+		},
+		["Adidas Speed Cell Ball"] = {
+			"http://www.roblox.com/asset/?id=17277687200",
+			"http://www.roblox.com/asset/?id=17277687200",
+			"http://www.roblox.com/asset/?id=17277687200",
+			"http://www.roblox.com/asset/?id=17277687200",
+			"http://www.roblox.com/asset/?id=17277687200",
+			"http://www.roblox.com/asset/?id=17277687200"
+		}
+	}
+	local v178 = {"Decal1", "Decal2", "Decal3", "Decal4", "Decal5", "Decal6"}
+	for v361, v362 in ipairs(v178) do
+		v175[v362].Texture = v177[v176][v361]
+	end
+end
+local function v37(v179, v180, v181, v182)
+	v179.SoundId = v180
+	v179.PlaybackSpeed = v181
+	v179.Volume = v182
+end
+v20:AddDropdown(
+	{
+		Title = "Select Ball Texture",
+		Description = "Choose the texture for the ball",
+		Tab = v34,
+		Options = {
+			Default = "Default",
+			["Adidas Brazuca"] = "Adidas Brazuca",
+			["Adidas Jabulani"] = "Adidas Jabulani",
+			["Adidas Rose World Cup Ball"] = "Adidas Rose World Cup Ball",
+			["Adidas Speed Cell Ball"] = "Adidas Speed Cell Ball"
+		},
+		Callback = function(v186)
+			local v187 = game.Workspace.TPSSystem.TPS
+			v36(v187, v186)
+			v20:Notify({Title = "Texture Changed", Description = v186 .. " texture applied to the ball!", Duration = 5})
+		end
+	}
+)
+v20:AddDropdown(
+	{
+		Title = "Select Ball Sound",
+		Description = "Choose the sound for the ball",
+		Tab = v34,
+		Options = {
+			Default = "Default",
+			["OOF!"] = "OOF!",
+			Neverlose = "Neverlose",
+			Rust = "Rust",
+			Bruh = "Bruh",
+			TF2 = "TF2",
+			UwU = "UwU"
+		},
+		Callback = function(v188)
+			local v189 = game.Workspace.TPSSystem.TPS.Sound
+			if (v188 == "Default") then
+				v37(v189, "rbxassetid://2516069845", 0.7, 0.7)
+			elseif (v188 == "OOF!") then
+				v37(v189, "rbxassetid://5143383166", 1, 2)
+			elseif (v188 == "Neverlose") then
+				v37(v189, "rbxassetid://6607204501", 0.7, 0.7)
+			elseif (v188 == "Rust") then
+				v37(v189, "rbxassetid://1255040462", 0.7, 0.7)
+			elseif (v188 == "Bruh") then
+				v37(v189, "rbxassetid://4275842574", 0.7, 0.7)
+			elseif (v188 == "TF2") then
+				v37(v189, "rbxassetid://2868331684", 0.7, 0.7)
+			elseif (v188 == "UwU") then
+				v37(v189, "rbxassetid://8679659744", 0.7, 0.7)
+			end
+			v20:Notify({Title = "Sound Changed", Description = v188 .. " sound applied to the ball!", Duration = 5})
+		end
+	}
+)
+local v38 = v20:AddTab({Title = "Miscellaneous", Section = "", Icon = "rbxassetid://10747364593"})
+v20:AddSection({Name = "Level Changer & Infinite Fire", Tab = v38})
+v20:AddInput(
+	{
+		Title = "Set Level",
+		Description = "Visual, for everyone to see, buy the paid version :D",
+		Tab = v38,
+		Callback = function(v190)
+			while wait() do
+				game.Players.LocalPlayer.PlayerGui.Start.Scores.Level.Text = "Level " .. tonumber(v190)
+			end
+		end
+	}
+)
+v20:AddToggle(
+	{
+		Title = "Enable Infinite Fire",
+		Description = "This time you don't need to activate it again every time you die",
+		Tab = v38,
+		Callback = function(v191)
+			if v191 then
+				_G.Fire = true
+				v20:Notify(
+					{
+						Title = "Infinite Fire Enabled",
+						Description = "Infinite Fire has been activated. It will remain active even if you die.",
+						Duration = 5
+					}
+				)
+				while _G.Fire do
+					wait()
+					for v713, v714 in pairs(game.Players.LocalPlayer:GetDescendants()) do
+						if ((v714.Name == "PowerReady") and v714:IsA("BoolValue")) then
+							v714.Value = true
+						end
+					end
+				end
+			else
+				_G.Fire = false
+				v20:Notify(
+					{
+						Title = "Infinite Fire Disabled",
+						Description = "Infinite Fire has been deactivated.",
+						Duration = 5
+					}
+				)
+			end
+		end
+	}
+)
+v20:AddSection({Name = "Humanoid Changes", Tab = v38})
+v20:AddSlider(
+	{Title = "WalkSpeed", Description = "Default (22)", Tab = v38, MaxValue = 50, Callback = function(v192)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v192
+	end}
+)
+v20:AddSlider(
+	{Title = "Jump Power", Description = "Default (50)", Tab = v38, MaxValue = 75, Callback = function(v194)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = v194
+	end}
+)
+v20:AddSection({Name = "Fake Ping", Tab = v38})
+local function v39(v196, v197, v198, v199)
+	local v200 = game:GetService("CoreGui"):WaitForChild("RobloxGui"):WaitForChild("PerformanceStats")
+	local v201
+	for v366, v367 in ipairs(v200:GetChildren()) do
+		if (v367.StatsMiniTextPanelClass.TitleLabel.Text == "Ping") then
+			v201 = v367.StatsMiniTextPanelClass.ValueLabel
+			break
+		end
+	end
+	local function v202()
+		while true do
+			local v591 = math.random(v196, v197) / 100
+			v201.Text = string.format("%.2f ms", v591)
+			wait(1.3)
+		end
+	end
+	v201:GetPropertyChangedSignal("Text"):Connect(
+		function()
+			v201.Text = v201.Text
+		end
+	)
+	v202()
+	v20:Notify({Title = v198, Description = v199, Duration = 5})
+end
+v20:AddButton(
+	{Title = "Fake Low Ping", Description = "Increase your ping To 100-140", Tab = v38, Callback = function()
+		v39(10224, 14820, "Low Ping Activated", "Ping set to 100-140 ms")
+	end}
+)
+v20:AddButton(
+	{Title = "Fake High Ping", Description = "Increase your ping To 210-270", Tab = v38, Callback = function()
+		v39(21842, 28525, "High Ping Activated", "Ping set to 210-270 ms")
+	end}
+)
+v20:AddSection({Name = "Screen Changers", Tab = v38})
+v20:AddInput(
+	{
+		Title = "Set Resolution",
+		Description = "The resolution makes your screen stretched",
+		Tab = v38,
+		Callback = function(v203)
+			getgenv().Resolution = {[".gg/scripters"] = v203}
+			local v205 = workspace.CurrentCamera
+			if (getgenv().gg_scripters == nil) then
+				game:GetService("RunService").RenderStepped:Connect(
+					function()
+						v205.CFrame =
+							v205.CFrame *
+							CFrame.new(0, 0, 0, 1, 0, 0, 0, getgenv().Resolution[".gg/scripters"], 0, 0, 0, 1)
+					end
+				)
+			end
+			getgenv().gg_scripters = "Aori0001"
+		end
+	}
+)
+v20:AddInput(
+	{
+		Title = "Set Resolution",
+		Description = "Allows you to use any type of FOV, without being limited by the game",
+		Tab = v38,
+		Callback = function(v207)
+			game.Workspace.CurrentCamera.FieldOfView = tonumber(v207)
+		end
+	}
+)
+v20:AddSection({Name = "Clumsy & Game Changers", Tab = v38})
+v20:AddParagraph(
+	{
+		Title = "About Clumsy",
+		Description = "Clumsy only increases your ping, many players who have low ping try to use this to leave their ping at 140 for better performance and reaction, because with very low ping you practically don't have it, My recommendations are you use [0.01 and 0.02 to skills]",
+		Tab = v38
+	}
+)
+v20:AddInput(
+	{Title = "Set Clumsy", Description = "0.01 for skills", Tab = v38, Callback = function(v209)
+		settings():GetService("NetworkSettings").IncomingReplicationLag = tonumber(v209)
+	end}
+)
+v20:AddButton(
+	{
+		Title = "Old Dirt and Level",
+		Description = "I wonder what this does",
+		Tab = v38,
+		Callback = function()
+			spawn(
+				function()
+					while true do
+						local v593 = workspace.SoccerFieldParts.SoccerField:FindFirstChild("Dirt")
+						if v593 then
+							v593:Destroy()
+						end
+						workspace.SoccerFieldParts.SoccerField.Material = Enum.Material.Granite
+						workspace.SoccerFieldParts.SoccerField.Color = Color3.new(41 / 255, 99 / 255, 27 / 255)
+						wait(60)
+					end
+				end
+			)
+			v20:Notify({Title = "Success!", Description = "Old dirt and level Actives", Duration = 5})
+		end
+	}
+)
+v20:AddButton(
+	{Title = "Remove Map", Description = "The name says it all", Tab = v38, Callback = function()
+		for v369, v370 in pairs(game.Workspace:GetChildren()) do
+			if (v370.Name == "Map") then
+				v370:Destroy()
+			end
+		end
+		v20:Notify({Title = "Success!", Description = "Success Removed Map", Duration = 5})
+	end}
+)
+local v40 = v20:AddTab({Title = "Troll Scripts", Section = "", Icon = "rbxassetid://131765165751888"})
+v20:AddToggle(
+	{
+		Title = "Stop The Ball",
+		Description = "Loop Stop The Ball for Troll Users",
+		Tab = v40,
+		Callback = function(v211)
+			if v211 then
+				_G.StopBall = true
+				local v597 = game:GetService("Workspace")
+				local v598 = game:GetService("Players")
+				local v599 = v597.FE.Actions.KickG1
+				local v600 = v597.TPSSystem.TPS
+				local v601 = v598.LocalPlayer.Character.HumanoidRootPart
+				local v602 = Vector3.new(4000000, 45, 4000000)
+				while _G.StopBall do
+					wait()
+					for v715 = 1, 20 do
+						v599:FireServer(v600, v601, 0, v602)
+					end
+				end
+				v20:Notify(
+					{
+						Title = "Stop The Ball Activated",
+						Description = "The ball stopping loop is now active!",
+						Duration = 5
+					}
+				)
+			else
+				_G.StopBall = false
+				v20:Notify(
+					{
+						Title = "Stop The Ball Deactivated",
+						Description = "The ball stopping loop has been deactivated.",
+						Duration = 5
+					}
+				)
+			end
+		end
+	}
+)
+v20:AddToggle(
+	{
+		Title = "Launch The Ball",
+		Description = "Loop Launch The Ball for Troll Users",
+		Tab = v40,
+		Callback = function(v212)
+			if v212 then
+				_G.LaunchBall = true
+				local v603 = game:GetService("Workspace")
+				local v604 = game:GetService("Players")
+				local v605 = v603.FE.Actions.KickG1
+				local v606 = v603.TPSSystem.TPS
+				local v607 = v604.LocalPlayer.Character.HumanoidRootPart
+				local v608 = Vector3.new(4000000, 1100, 4000000)
+				while _G.LaunchBall do
+					wait()
+					for v716 = 1, 10 do
+						v605:FireServer(v606, v607, 0, v608)
+					end
+				end
+				v20:Notify(
+					{
+						Title = "Launch The Ball Activated",
+						Description = "The ball launching loop is now active!",
+						Duration = 5
+					}
+				)
+			else
+				_G.LaunchBall = false
+				v20:Notify(
+					{
+						Title = "Launch The Ball Deactivated",
+						Description = "The ball launching loop has been deactivated.",
+						Duration = 5
+					}
+				)
+			end
+		end
+	}
+)
+v20:AddSection({Name = "Drag Clicks", Tab = v40})
+v20:AddToggle(
+	{
+		Title = "Enable Drag Click [To the right side]",
+		Description = "It only works sometimes, yes that's sad :(",
+		Tab = v40,
+		Callback = function(v213)
+			if v213 then
+				_G.DragClickRight = true
+				while _G.DragClickRight do
+					wait()
+					for v717 = 1, 25 do
+						local v718 = game:GetService("Workspace").TPSSystem.TPS
+						local v719 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+						local v720 = game:GetService("Workspace").FE.Actions.KickC1
+						v720:FireServer(v718, v719)
+					end
+				end
+				v20:Notify(
+					{
+						Title = "Drag Click Right Activated",
+						Description = "The drag click to the right side is now active!",
+						Duration = 5
+					}
+				)
+			else
+				_G.DragClickRight = false
+				v20:Notify(
+					{
+						Title = "Drag Click Right Deactivated",
+						Description = "The drag click to the right side has been deactivated.",
+						Duration = 5
+					}
+				)
+			end
+		end
+	}
+)
+v20:AddToggle(
+	{
+		Title = "Enable Drag Click [To the left side]",
+		Description = "It only works sometimes, yes that's sad :(",
+		Tab = v40,
+		Callback = function(v214)
+			if v214 then
+				_G.DragClickLeft = true
+				while _G.DragClickLeft do
+					wait()
+					for v721 = 1, 25 do
+						local v722 = game:GetService("Workspace").TPSSystem.TPS
+						local v723 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+						local v724 = game:GetService("Workspace").FE.Actions.KickC2
+						v724:FireServer(v722, v723)
+					end
+				end
+				v20:Notify(
+					{
+						Title = "Drag Click Left Activated",
+						Description = "The drag click to the left side is now active!",
+						Duration = 5
+					}
+				)
+			else
+				_G.DragClickLeft = false
+				v20:Notify(
+					{
+						Title = "Drag Click Left Deactivated",
+						Description = "The drag click to the left side has been deactivated.",
+						Duration = 5
+					}
+				)
+			end
+		end
+	}
+)
+v20:AddSection({Name = "Others Functions to Troll", Tab = v40})
+v20:AddButton(
+	{Title = "Kill All", Description = "Kill all players using fling all method", Tab = v40, Callback = function()
+		loadstring(game:HttpGet("https://pastebin.com/raw/zqyDSUWX"))()
+	end}
+)
+v20:AddToggle(
+	{
+		Title = "Fly On The Ball",
+		Description = "Now the fly on the ball is more controlled :v",
+		Tab = v40,
+		Callback = function(v215)
+			if v215 then
+				v17 =
+					game:GetService("RunService").Heartbeat:Connect(
+						function()
+							if _G.FlyOnBall then
+								game.Players.LocalPlayer.Character:MoveTo(game.Workspace.TPSSystem.TPS.Position)
+							end
+						end
+					)
+				v20:Notify(
+					{
+						Title = "Fly On The Ball Activated",
+						Description = "The toggle is now active. The character will fly to the TPS position.",
+						Duration = 5
+					}
+				)
+				_G.FlyOnBall = true
+			else
+				if v17 then
+					v17:Disconnect()
+					v17 = nil
+				end
+				v20:Notify(
+					{
+						Title = "Fly On The Ball Deactivated",
+						Description = "The toggle has been deactivated. The character will no longer move to the TPS position.",
+						Duration = 5
+					}
+				)
+				_G.FlyOnBall = false
+			end
+		end
+	}
+)
+v20:AddButton(
+	{
+		Title = "Open Auto Farm GUI",
+		Description = "Kill all players using fling all method",
+		Tab = v40,
+		Callback = function()
+			loadstring(
+				game:HttpGet("https://raw.githubusercontent.com/Skinny-yz/My-Scripts/main/TPS/AutoFarmGoals.lua")
+			)()
+		end
+	}
+)
+local v41 = v20:AddTab({Title = "Avatar Stolen", Section = "", Icon = "rbxassetid://10734920149"})
+v20:AddParagraph(
+	{
+		Title = "About Avatar Stolen",
+		Description = "To use the Stolen Avatar you need requirements, which are:\nTotally Clean Character, No Accessories\nNickname of the User whose avatar you want to steal.\nAfter all the requirements you are ready to use!",
+		Tab = v41
+	}
+)
+local v42 = game:GetService("Players")
+local v43 = v42.LocalPlayer
+local v44 = {Enabled = false}
+local v45 = {Value = ""}
+local function v46(v216)
+	task.spawn(
+		function()
+			if not v216 then
+				return
+			end
+			local v371 = v216:WaitForChild("Humanoid", 8999999488)
+			local v372
+			if (v372 == nil) then
+				local v665 = false
+				repeat
+					v665 =
+						pcall(
+							function()
+								local v730 = v42:GetUserIdFromNameAsync(v45.Value)
+								v372 = v42:GetHumanoidDescriptionFromUserId(v730)
+							end
+						)
+					if v665 then
+						break
+					end
+					task.wait(1)
+				until v665 or not v44.Enabled
+			end
+			if not v44.Enabled then
+				return
+			end
+			v371:ApplyDescriptionClientServer(v372)
+		end
+	)
+end
+v20:AddInput(
+	{
+		Title = "Input the Nickname to Stole Avatar",
+		Description = "Read The Requiriments",
+		Tab = v41,
+		Callback = function(v217)
+			v45.Value = v217
+			v44.Enabled = true
+			v46(v43.Character)
+		end
+	}
+)
+v43.CharacterAdded:Connect(
+	function(v220)
+		if v44.Enabled then
+			v46(v220)
+		end
+	end
+)
+local v47 = v20:AddTab({Title = "Skyes", Section = "", Icon = "rbxassetid://10709806740"})
+v20:AddButton(
+	{Title = "Night Sky", Description = "A good Sky with Mountains", Tab = v47, Callback = function()
+		local v221 = Instance.new("Sky")
+		function NightSky()
+			v221.Parent = game.Lighting
+			v221.SkyboxBk = "http://www.roblox.com/asset/?id=12064107"
+			v221.SkyboxDn = "http://www.roblox.com/asset/?id=12064152"
+			v221.SkyboxFt = "http://www.roblox.com/asset/?id=12064121"
+			v221.SkyboxLf = "http://www.roblox.com/asset/?id=12063984"
+			v221.SkyboxRt = "http://www.roblox.com/asset/?id=12064115"
+			v221.SkyboxUp = "http://www.roblox.com/asset/?id=12064131"
+			v221.StarCount = 0
+		end
+		NightSky()
+	end}
+)
+v20:AddButton(
+	{Title = "Scary Night", Description = "A good sky with clouds and Moon", Tab = v47, Callback = function()
+		local v222 = Instance.new("Sky")
+		function ScaryNight()
+			v222.Parent = game.Lighting
+			v222.SkyboxBk = "http://www.roblox.com/asset/?id=48020371"
+			v222.SkyboxDn = "http://www.roblox.com/asset/?id=48020144"
+			v222.SkyboxFt = "http://www.roblox.com/asset/?id=48020234"
+			v222.SkyboxLf = "http://www.roblox.com/asset/?id=48020211"
+			v222.SkyboxRt = "http://www.roblox.com/asset/?id=48020254"
+			v222.SkyboxUp = "http://www.roblox.com/asset/?id=48020383"
+			v222.StarCount = 3000
+		end
+		ScaryNight()
+	end}
+)
+v20:AddButton(
+	{
+		Title = "Sakura Sky",
+		Description = "A very beautiful sky where the color pink predominates",
+		Tab = v47,
+		Callback = function()
+			local v223 = Instance.new("Sky")
+			function SakuraSky()
+				v223.Parent = game.Lighting
+				v223.SkyboxBk = "http://www.roblox.com/asset/?id=271042516"
+				v223.SkyboxDn = "http://www.roblox.com/asset/?id=271077243"
+				v223.SkyboxFt = "http://www.roblox.com/asset/?id=271042556"
+				v223.SkyboxLf = "http://www.roblox.com/asset/?id=271042310"
+				v223.SkyboxRt = "http://www.roblox.com/asset/?id=271042467"
+				v223.SkyboxUp = "http://www.roblox.com/asset/?id=271077958"
+				v223.StarCount = 1334
+			end
+			SakuraSky()
+		end
+	}
+)
+v20:AddButton(
+	{
+		Title = "CakeUp Night Sky Galaxy Planets",
+		Description = "A good sky with several planets",
+		Tab = v47,
+		Callback = function()
+			local v224 = Instance.new("Sky")
+			function CakeUpNightSkyGalaxyPlanets()
+				v224.Parent = game.Lighting
+				v224.SkyboxBk = "http://www.roblox.com/asset/?id=15983968922"
+				v224.SkyboxDn = "http://www.roblox.com/asset/?id=15983966825"
+				v224.SkyboxFt = "http://www.roblox.com/asset/?id=15983965025"
+				v224.SkyboxLf = "http://www.roblox.com/asset/?id=15983967420"
+				v224.SkyboxRt = "http://www.roblox.com/asset/?id=15983966246"
+				v224.SkyboxUp = "http://www.roblox.com/asset/?id=15983964246"
+				v224.StarCount = 3000
+			end
+			CakeUpNightSkyGalaxyPlanets()
+		end
+	}
+)
+v20:AddButton(
+	{
+		Title = "Purple Night Sky",
+		Description = "A very beautiful sky that gives off a good vibe",
+		Tab = v47,
+		Callback = function()
+			local v225 = Instance.new("Sky")
+			function PurpleNightSky()
+				v225.Parent = game.Lighting
+				v225.SkyboxBk = "http://www.roblox.com/asset/?id=5084575798"
+				v225.SkyboxDn = "http://www.roblox.com/asset/?id=5084575916"
+				v225.SkyboxFt = "http://www.roblox.com/asset/?id=5103949679"
+				v225.SkyboxLf = "http://www.roblox.com/asset/?id=5103948542"
+				v225.SkyboxRt = "http://www.roblox.com/asset/?id=5103948784"
+				v225.SkyboxUp = "http://www.roblox.com/asset/?id=5084576400"
+				v225.StarCount = 3000
+			end
+			PurpleNightSky()
+		end
+	}
+)
+v20:AddButton(
+	{
+		Title = "Sunset Orange",
+		Description = "A beautiful sky that conveys the end of the day vibe",
+		Tab = v47,
+		Callback = function()
+			local v226 = Instance.new("Sky")
+			function SunsetOrange()
+				v226.Parent = game.Lighting
+				v226.SkyboxBk = "http://www.roblox.com/asset/?id=458016711"
+				v226.SkyboxDn = "http://www.roblox.com/asset/?id=458016826"
+				v226.SkyboxFt = "http://www.roblox.com/asset/?id=458016532"
+				v226.SkyboxLf = "http://www.roblox.com/asset/?id=458016655"
+				v226.SkyboxRt = "http://www.roblox.com/asset/?id=458016782"
+				v226.SkyboxUp = "http://www.roblox.com/asset/?id=458016792"
+				v226.StarCount = 3000
+			end
+			SunsetOrange()
+		end
+	}
+)
+v20:AddButton(
+	{
+		Title = "Purple Sky",
+		Description = "A very beautiful sky that gives off a good vibe",
+		Tab = v47,
+		Callback = function()
+			local v227 = Instance.new("Sky")
+			function PurpleSky()
+				v227.Parent = game.Lighting
+				v227.SkyboxBk = "http://www.roblox.com/asset/?id=570557514"
+				v227.SkyboxDn = "http://www.roblox.com/asset/?id=570557775"
+				v227.SkyboxFt = "http://www.roblox.com/asset/?id=570557559"
+				v227.SkyboxLf = "http://www.roblox.com/asset/?id=570557620"
+				v227.SkyboxRt = "http://www.roblox.com/asset/?id=570557672"
+				v227.SkyboxUp = "http://www.roblox.com/asset/?id=570557727"
+				v227.StarCount = 3000
+			end
+			PurpleSky()
+		end
+	}
+)
+v20:AddButton(
+	{Title = "Gray Sky", Description = "A sky that gives off the vibe of a cloudy day", Tab = v47, Callback = function()
+		local v228 = Instance.new("Sky")
+		function GraySky()
+			v228.Parent = game.Lighting
+			v228.SkyboxBk = "http://www.roblox.com/asset/?id=18703245834"
+			v228.SkyboxDn = "http://www.roblox.com/asset/?id=18703243349"
+			v228.SkyboxFt = "http://www.roblox.com/asset/?id=18703240532"
+			v228.SkyboxLf = "http://www.roblox.com/asset/?id=18703237556"
+			v228.SkyboxRt = "http://www.roblox.com/asset/?id=18703235430"
+			v228.SkyboxUp = "http://www.roblox.com/asset/?id=18703232671"
+			v228.StarCount = 3500
+		end
+		GraySky()
+	end}
+)
+v20:AddButton(
+	{
+		Title = "Mountain Sky",
+		Description = "A Sky that gives you a good feeling, like you're playing in the snow",
+		Tab = v47,
+		Callback = function()
+			local v229 = Instance.new("Sky")
+			function MountainSky()
+				v229.Parent = game.Lighting
+				v229.SkyboxBk = "http://www.roblox.com/asset/?id=160188495"
+				v229.SkyboxDn = "http://www.roblox.com/asset/?id=160188614"
+				v229.SkyboxFt = "http://www.roblox.com/asset/?id=160188609"
+				v229.SkyboxLf = "http://www.roblox.com/asset/?id=160188589"
+				v229.SkyboxRt = "http://www.roblox.com/asset/?id=160188597"
+				v229.SkyboxUp = "http://www.roblox.com/asset/?id=160188588"
+				v229.StarCount = 3000
+			end
+			MountainSky()
+		end
+	}
+)
+v20:AddButton(
+	{Title = "Pinkie Preppy Sky", Description = "A sky with wonderful clouds", Tab = v47, Callback = function()
+		local v230 = Instance.new("Sky")
+		function PinkiePreppySky()
+			v230.Parent = game.Lighting
+			v230.SkyboxBk = "http://www.roblox.com/asset/?id=11555017034"
+			v230.SkyboxDn = "http://www.roblox.com/asset/?id=11555013415"
+			v230.SkyboxFt = "http://www.roblox.com/asset/?id=11555010145"
+			v230.SkyboxLf = "http://www.roblox.com/asset/?id=11555006545"
+			v230.SkyboxRt = "http://www.roblox.com/asset/?id=11555000712"
+			v230.SkyboxUp = "http://www.roblox.com/asset/?id=11554996247"
+			v230.StarCount = 3000
+		end
+		PinkiePreppySky()
+	end}
+)
+v20:AddButton(
+	{Title = "Mountain Sky 2", Description = "Mountain, clouds and snow", Tab = v47, Callback = function()
+		local v231 = Instance.new("Sky")
+		function MountainSky2()
+			v231.Parent = game.Lighting
+			v231.SkyboxBk = "http://www.roblox.com/asset/?id=368385273"
+			v231.SkyboxDn = "http://www.roblox.com/asset/?id=48015300"
+			v231.SkyboxFt = "http://www.roblox.com/asset/?id=368388290"
+			v231.SkyboxLf = "http://www.roblox.com/asset/?id=368390615"
+			v231.SkyboxRt = "http://www.roblox.com/asset/?id=368385190"
+			v231.SkyboxUp = "http://www.roblox.com/asset/?id=48015387"
+			v231.StarCount = 3000
+		end
+		MountainSky2()
+	end}
+)
+v20:AddButton(
+	{
+		Title = "Sunset Mountain Sky",
+		Description = "A Perfect Sky, I have no words for this",
+		Tab = v47,
+		Callback = function()
+			local v232 = Instance.new("Sky")
+			function SunsetMountainSky()
+				v232.Parent = game.Lighting
+				v232.SkyboxBk = "http://www.roblox.com/asset/?id=17901353811"
+				v232.SkyboxDn = "http://www.roblox.com/asset/?id=17901366771"
+				v232.SkyboxFt = "http://www.roblox.com/asset/?id=17901356262"
+				v232.SkyboxLf = "http://www.roblox.com/asset/?id=17901359687"
+				v232.SkyboxRt = "http://www.roblox.com/asset/?id=17901362326"
+				v232.SkyboxUp = "http://www.roblox.com/asset/?id=17901365106"
+				v232.StarCount = 3000
+			end
+			SunsetMountainSky()
+		end
+	}
+)
+local v48 = End
+local v49 = v20:AddTab({Title = "Settings", Section = "", Icon = "rbxassetid://11293977610"})
+v20:AddKeybind(
+	{Title = "Minimize Keybind", Description = "Set the keybind for Minimizing", Tab = v49, Callback = function(v233)
+		v20:SetSetting("Keybind", v233)
+	end}
+)
+v20:AddDropdown(
+	{
+		Title = "Set Theme",
+		Description = "Set the theme of the library!",
+		Tab = v49,
+		Options = {["Light Mode"] = "Light", ["Dark Mode"] = "Dark", ["Extra Dark"] = "Void"},
+		Callback = function(v234)
+			v20:SetTheme(v21[v234])
+		end
+	}
+)
+v20:AddToggle(
+	{
+		Title = "UI Blur",
+		Description = "If enabled, must have your Roblox graphics set to 8+ for it to work",
+		Default = true,
+		Tab = v49,
+		Callback = function(v235)
+			v20:SetSetting("Blur", v235)
+		end
+	}
+)
+v20:AddSlider(
+	{
+		Title = "UI Transparency",
+		Description = "Set the transparency of the UI",
+		Tab = v49,
+		AllowDecimals = true,
+		MaxValue = 1,
+		Callback = function(v236)
+			v20:SetSetting("Transparency", v236)
+		end
+	}
+)
+v20:Notify({Title = "Hello World!", Description = "Press End to Minimize and Open the tab!", Duration = 10})
+v18.InputBegan:Connect(
+	function(v237)
+		if (v237 == v48) then
+			warn("You have pressed the minimize keybind!")
+		end
+	end
+)
