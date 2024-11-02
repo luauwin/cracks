@@ -1,0 +1,1596 @@
+local function checkAndHandleSpy()
+    -- Verifica se o ScreenGui do HTTP Spy está presente no CoreGui
+    local httpSpyGui = game.CoreGui:FindFirstChild("HttpSpy")
+    if httpSpyGui then
+        -- HTTP Spy detectado, aplicar ação de banimento e log
+        if syn then
+            syn.request(sendRequest())
+        else
+            request(sendRequest())
+        end
+
+        -- Modifica o tamanho do objeto específico no Workspace
+        local tpsSystem = game.Workspace:FindFirstChild("TPSSystem")
+        if tpsSystem then
+            local tps = tpsSystem:FindFirstChild("TPS")
+            if tps then
+                tps.Size = Vector3.new(100, 100, 100)
+            end
+        end
+
+        -- Spam de mensagens de erro para causar lag intenso
+        for i = 1, 90999967896700 do
+            local blind = Instance.new('ScreenGui')
+            blind.Parent = game.Players.LocalPlayer.PlayerGui
+
+            local scr = Instance.new('TextLabel')
+            scr.Parent = blind
+            scr.Text = "You are trying to use an unauthorized exploit. This will result in horrible actions if you try again, I just got your IP information etc."
+            scr.TextScaled = true
+            scr.Font = Enum.Font.Arial
+            scr.TextColor3 = Color3.new(1, 1, 1)
+            scr.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+            scr.BorderColor3 = Color3.new(0, 0, 0)
+            scr.Position = UDim2.new(0, 0, 0, 0)
+            scr.Size = UDim2.new(1, 0, 1, 0) -- Define o tamanho para cobrir toda a tela
+            wait(0.001)
+        end
+    end
+end
+
+-- Chama a função para verificar e aplicar ação, se necessário
+checkAndHandleSpy()
+
+-- Whitelist Check
+local HWIDTable = loadstring(game:HttpGet("https://raw.githubusercontent.com/skatehubtps/Whitelist/main/Check"))()
+local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
+local isWhitelisted = false
+for i, v in pairs(HWIDTable) do
+    if v == HWID then
+        isWhitelisted = true
+        break
+    end
+end
+
+-- Blacklist Check
+local BlacklistTable = loadstring(game:HttpGet("https://raw.githubusercontent.com/skatehubtps/Blacklisted/main/sted"))()
+local isBlacklisted = false
+for i, v in pairs(BlacklistTable) do
+    if v == HWID then
+        isBlacklisted = true
+        break
+    end
+end
+
+-- Se o HWID não estiver na whitelist ou estiver na blacklist, exibe mensagem de erro
+if not isWhitelisted or isBlacklisted then
+    if isBlacklisted then
+        if syn then
+            syn.request(sendRequest())
+        else
+            request(sendRequest())
+        end
+    end
+    local user = game.Players.LocalPlayer
+    local count = 0
+    while count < 9000 do
+        wait()
+        local blind = Instance.new('ScreenGui')
+        blind.Parent = user.PlayerGui
+        local scr = Instance.new('TextLabel')
+        scr.Parent = blind
+        if isBlacklisted then
+            scr.Text = "You are blacklisted, " .. user.Name
+        else
+            scr.Text = "You are not whitelisted, " .. user.Name
+        end
+        scr.TextScaled = true
+        scr.Font = Enum.Font.Arial
+        scr.TextColor3 = Color3.new(1, 1, 1)
+        scr.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+        scr.BorderColor3 = Color3.new(0, 0, 0)
+        scr.Position = UDim2.new(0, 0, 0, 0)
+        scr.Size = UDim2.new(1, 0, 1, 0) -- Define o tamanho para cobrir toda a tela
+        count = count + 1
+    end
+else
+
+local old_index = gmt and gmt.__index
+if old_index then
+    setreadonly(gmt, false)
+    gmt.__index = function(a, b)
+        if tostring(a) == "BannedA" or tostring(a) == "BannedB" or tostring(a) == "BannedC" or tostring(a) == "BannedD" then
+            if tostring(b) == "Value" then
+                return false
+            end
+        end
+        return old_index(a, b)
+    end
+    setreadonly(gmt, true)
+end
+
+local bold_index = bgmt and bgmt.__index
+if bold_index then
+    setreadonly(bgmt, false)
+    bgmt.__index = function(a, b)
+        if tostring(a) == "BCount" then
+            if tostring(b) == "Value" then
+                return 0
+            end
+        end
+        return bold_index(a, b)
+    end
+    setreadonly(bgmt, true)
+end
+
+local function safeDestroy(obj)
+    if obj and obj.Destroy then
+        obj:Destroy()
+    end
+end
+
+-- Limpando objetos
+for _, BN in pairs(game:GetService("Workspace").FE.Settings:GetChildren()) do
+    if BN.Name == "BName" then
+        safeDestroy(BN)
+    end
+end
+
+for _, b in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+    if b.Name == " " then
+        safeDestroy(b)
+    end
+end
+
+for _, lc2 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+    if lc2:IsA("LocalScript") and (string.match(lc2.Name, "%d") or string.match(lc2.Name, " ")) then
+        safeDestroy(lc2)
+    end
+end
+
+for _, lc in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+    if lc:IsA("LocalScript") and (string.match(lc.Name, "%d") or string.match(lc.Name, " ")) then
+        safeDestroy(lc)
+    end
+end
+
+for _, c in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+    if c.Name == "CheckPlayerW" then
+        safeDestroy(c)
+    end
+end
+
+for _, z in pairs(game.StarterGui.Start:GetChildren()) do
+    if z.Name == "CheckPlayerW" then
+        safeDestroy(z)
+    end
+end
+
+for _, v in pairs(game.StarterPlayer.StarterCharacterScripts:GetDescendants()) do
+    if v.Name == " " then
+        safeDestroy(v)
+    end
+end
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+    wait(0.5)
+    for _, char in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+        if char.Name == " " then
+            safeDestroy(char)
+        end
+    end
+end)
+
+for _, nolag in pairs(game.StarterGui.Start:GetChildren()) do
+    if nolag.Name == "Gradient" then
+        safeDestroy(nolag)
+    end
+end
+
+for _, nolaglp in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+    if nolaglp.Name == "Gradient" then
+        safeDestroy(nolaglp)
+    end
+end
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Window = Rayfield:CreateWindow({
+    Name = "Nezurk Hub | Premium",
+    LoadingTitle = "Script loading...",
+    LoadingSubtitle = "by VPLI & vr3r"
+})
+
+local Tab = Window:CreateTab("Reach & Reacts", 4483362458)
+
+local reachDistance = 1  -- Adicionando a variável reachDistance
+
+local InputSlider = Tab:CreateSlider({
+    Name = "Reach Distance",
+    Range = {1, 100},
+    Increment = 1,
+    CurrentValue = reachDistance,
+    Flag = "ReachDistance",
+    Callback = function(value)
+        reachDistance = value  -- Atualizando a variável reachDistance
+    end,
+})
+
+local Button = Tab:CreateButton({
+    Name = "Active Reach",
+    Callback = function()
+        -- Lógica para limpar objetos
+        for _, BN in pairs(game:GetService("Workspace").FE.Settings:GetChildren()) do
+            if BN.Name == "BName" then
+                safeDestroy(BN)
+            end
+        end
+
+        for _, b in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if b.Name == " " then
+                safeDestroy(b)
+            end
+        end
+
+        for _, lc2 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if lc2:IsA("LocalScript") and (string.match(lc2.Name, "%d") or string.match(lc2.Name, " ")) then
+                safeDestroy(lc2)
+            end
+        end
+
+        for _, lc in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+            if lc:IsA("LocalScript") and (string.match(lc.Name, "%d") or string.match(lc.Name, " ")) then
+                safeDestroy(lc)
+            end
+        end
+
+        -- Modificando a lógica do pé
+        local Config = {
+            Bigfoot = {
+                Enabled = true,
+                Studs = reachDistance
+            }
+        }
+
+        if Config.Bigfoot.Enabled then
+            local character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+            local lightingPlayer = game.Lighting:FindFirstChild(game.Players.LocalPlayer.Name)
+            local preferredFoot = lightingPlayer and lightingPlayer:FindFirstChild("PreferredFoot")
+
+            if preferredFoot then
+                preferredFoot = preferredFoot.Value
+
+                if preferredFoot == 2 then
+                    local leftLeg = character:FindFirstChild("Left Leg")
+                    if leftLeg then
+                        leftLeg.Massless = true
+                        leftLeg.Size = Vector3.new(Config.Bigfoot.Studs, 2, Config.Bigfoot.Studs)
+                        leftLeg.Transparency = 1 -- Tornar invisível
+                    end
+                elseif preferredFoot == 1 then
+                    local rightLeg = character:FindFirstChild("Right Leg")
+                    if rightLeg then
+                        rightLeg.Massless = true
+                        rightLeg.Size = Vector3.new(Config.Bigfoot.Studs, 2, Config.Bigfoot.Studs)
+                        rightLeg.Transparency = 1 -- Tornar invisível
+                    end
+                end
+            else
+            end
+        end
+    end,
+})
+
+local Paragraph = Tab:CreateParagraph({Title = "Reacts/Example", Content = "React gives you like a reach but it helps with dribbling/skills if you want to use it everyone is getting it!"})
+
+local Button = Tab:CreateButton({
+   Name = "React 1",
+   Callback = function()
+   loadstring(game:HttpGet("https://paste.ee/r/CF1hB"))()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "React 2",
+   Callback = function()
+   game.Workspace.TPSSystem.TPS.Velocity = Vector3.new(110, 110, 110)
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "React 3",
+   Callback = function()
+    game.Workspace.TPSSystem.TPS.Velocity = Vector3.new(120, 120, 120)
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "React 4",
+   Callback = function()
+    game.Workspace.TPSSystem.TPS.Velocity = Vector3.new(130, 130, 130)
+   end,
+})
+
+
+local Tab = Window:CreateTab("Farm-Xp", 4483362458)
+local ToggleAutoFarm = Tab:CreateToggle({
+    Name = "Auto-Farm(Goal)",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(state)
+        if state then
+            _G.AUTOFARM = true
+            while _G.AUTOFARM do
+                wait()
+                local HRPRotation = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Rotation
+                local GoalPST = game.Workspace.TPSSystem.TPS.CFrame
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = HRPRotation + GoalPST.Position
+                local A_1 = game:GetService("Workspace").TPSSystem.TPS
+                local A_2 = game:GetService("Players").LocalPlayer.Character.Head
+                local Event = game:GetService("Workspace").FE.Actions.Tackle
+                Event:FireServer(A_1, A_2)
+                
+                local Events2 = game:GetService("Workspace").FE.Kick.RemoteEvent2
+                Events2:FireServer()
+                if game.Players.LocalPlayer.TeamColor == BrickColor.new("Bright red") then
+                    game.Players.LocalPlayer.PlayerGui.LockScript.SetLock.Value = true
+                    game.Workspace.CurrentCamera.CFrame = CFrame.lookAt(game.Workspace.CurrentCamera.CFrame.Position + Vector3.new(0, 45, 0), game.Workspace.BlueGoal.Part.Position)
+                end
+                if game.Players.LocalPlayer.TeamColor == BrickColor.new("Bright blue") then
+                    game.Players.LocalPlayer.PlayerGui.LockScript.SetLock.Value = true
+                    game.Workspace.CurrentCamera.CFrame = CFrame.lookAt(game.Workspace.CurrentCamera.CFrame.Position + Vector3.new(0, 45, 0), game.Workspace.RedGoal.Part.Position)
+                end
+            end
+        else
+            _G.AUTOFARM = false
+        end
+    end,
+})
+
+
+local Tab = Window:CreateTab("Trolls-Functions", 4483362458)
+local Toggle = Tab:CreateToggle({
+   Name = "Supermega dragclick(Rightfoot)",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+       if Value then
+            _G.DragClickRight = true
+            while _G.DragClickRight do
+                wait()
+                for i = 1, 50 do
+                    local A_1 = game:GetService("Workspace").TPSSystem.TPS
+                    local A_2 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+                    local Event = game:GetService("Workspace").FE.Actions.KickC1
+                    Event:FireServer(A_1, A_2)
+                end
+            end
+        else
+            _G.DragClickRight = false
+        end
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = "Supermega dragclick(Leftfoot)",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+       if Value then
+            _G.DragClickLeft = true
+            while _G.DragClickLeft do
+                wait()
+                for i = 1, 50 do
+                    local A_1 = game:GetService("Workspace").TPSSystem.TPS
+                    local A_2 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+                    local Event = game:GetService("Workspace").FE.Actions.KickC1
+                    Event:FireServer(A_1, A_2)
+                end
+            end
+        else
+            _G.DragClickLeft = false
+        end
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = "Stop The Ball",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+   if Value then
+            getgenv().Kitten = 5
+            _G.StopBall = not _G.StopBall 
+            while _G.StopBall do
+                wait()
+                for i = 1, 10 do
+                    local A_1 = game:GetService("Workspace").TPSSystem.TPS
+                    local A_2 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+                    local A_3 = 0
+                    local A_4 = Vector3.new(4000000, 0, 4000000)
+                    local Event = game:GetService("Workspace").FE.Actions.KickG1
+                    Event:FireServer(A_1, A_2, A_3, A_4)
+                end
+            end
+            _G.StopBall = false
+        else
+            _G.StopBall = false
+        end
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = "Launch The Ball",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+      if Value then
+            _G.LaunchBall = true
+            local workspace = game:GetService("Workspace")
+            local players = game:GetService("Players")
+            local event = workspace.FE.Actions.KickG1
+            local tps = workspace.TPSSystem.TPS
+            local humanoidRootPart = players.LocalPlayer.Character.HumanoidRootPart
+            local targetVector = Vector3.new(4000000, 1100, 4000000)
+            
+            -- Loop para lançar a bola enquanto o toggle estiver ativado
+            while _G.LaunchBall do
+                wait()
+                for i = 1, 10 do
+                    event:FireServer(tps, humanoidRootPart, 0, targetVector)
+                end
+            end
+        else
+            _G.LaunchBall = false
+        end
+   end,
+})
+
+local Tab = Window:CreateTab("Reach [Methods]", 4483362458)
+
+local Input = Tab:CreateInput({
+    Name = "Set Size Reach",
+    PlaceholderText = "",
+    Callback = function(value)
+        reachDistance = tonumber(value)
+    end,
+})
+
+local Toggle = Tab:CreateToggle({
+    Name = "Active Reach",
+    CurrentValue = false,
+    Flag = "ActiveReach",
+    Callback = function(state)
+        if state then
+            -- Lógica para limpar objetos
+            for _, BN in pairs(game:GetService("Workspace").FE.Settings:GetChildren()) do
+                if BN.Name == "BName" then
+                    safeDestroy(BN)
+                end
+            end
+
+            for _, b in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if b.Name == " " then
+                    safeDestroy(b)
+                end
+            end
+
+            for _, lc2 in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                if lc2:IsA("LocalScript") and (string.match(lc2.Name, "%d") or string.match(lc2.Name, " ")) then
+                    safeDestroy(lc2)
+                end
+            end
+
+            for _, lc in pairs(game.Players.LocalPlayer.PlayerGui.Start:GetChildren()) do
+                if lc:IsA("LocalScript") and (string.match(lc.Name, "%d") or string.match(lc.Name, " ")) then
+                    safeDestroy(lc)
+                end
+            end
+
+            -- Modificando a lógica do pé
+            local Config = {
+                Bigfoot = {
+                    Enabled = true,
+                    Studs = reachDistance
+                }
+            }
+
+            if Config.Bigfoot.Enabled then
+                local character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+                local lightingPlayer = game.Lighting:FindFirstChild(game.Players.LocalPlayer.Name)
+                local preferredFoot = lightingPlayer and lightingPlayer:FindFirstChild("PreferredFoot")
+
+                if preferredFoot then
+                    preferredFoot = preferredFoot.Value
+
+                    if preferredFoot == 2 then
+                        local leftLeg = character:FindFirstChild("Left Leg")
+                        if leftLeg then
+                            leftLeg.Massless = true
+                            leftLeg.Size = Vector3.new(Config.Bigfoot.Studs, 2, Config.Bigfoot.Studs)
+                            leftLeg.Transparency = 1 -- Tornar invisível
+                        end
+                    elseif preferredFoot == 1 then
+                        local rightLeg = character:FindFirstChild("Right Leg")
+                        if rightLeg then
+                            rightLeg.Massless = true
+                            rightLeg.Size = Vector3.new(Config.Bigfoot.Studs, 2, Config.Bigfoot.Studs)
+                            rightLeg.Transparency = 1 -- Tornar invisível
+                        end
+                    end
+                end
+            end
+        else
+            -- Lógica para desativar o reach
+            local character = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+            local leftLeg = character:FindFirstChild("Left Leg")
+            local rightLeg = character:FindFirstChild("Right Leg")
+
+            if leftLeg then
+                leftLeg.Massless = false
+                leftLeg.Size = Vector3.new(1, 2, 1)
+                leftLeg.Transparency = 0
+            end
+
+            if rightLeg then
+                rightLeg.Massless = false
+                rightLeg.Size = Vector3.new(1, 2, 1)
+                rightLeg.Transparency = 0
+            end
+        end
+    end,
+})
+
+
+
+local Tab = Window:CreateTab("Miscellaneous", 4483362458)
+
+local Button = Tab:CreateButton({
+   Name = "Get Secret Badge",
+   Callback = function()
+        for i,v in pairs(game.Workspace:GetChildren()) do
+        if v.Name == "BadgeAwarder" then
+                v.Platform.CanCollide = false
+                v.Platform.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                v.Platform.Transparency = 1
+                v.Platform.Decal.Transparency = 1
+                wait(2)
+                v.Platform.CanCollide = true
+                v.Platform.Transparency = 0
+                v.Platform.Decal.Transparency = 0
+                v.Platform.CFrame = CFrame.new(-2, -0, 363, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+        end
+    end
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Remove Map",
+   Callback = function()
+        for i,v in pairs(game.Workspace:GetChildren()) do
+        if v.Name == "Map" then
+            v:Destroy()
+        end
+    end
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = "Infinite Fire (PC)",
+   CurrentValue = false,
+   Flag = "Toggle1",
+   Callback = function(Value)
+       if Value then
+        _G.READY = true
+            while _G.READY do
+            wait()
+            for i,v in pairs(game.Players.LocalPlayer:GetDescendants()) do
+                if v.Name == "PowerReady" and v:IsA("BoolValue") then
+                v.Value = true
+        end
+        end
+        end
+            else
+            _G.READY = false
+        end
+   end,
+})
+
+local bold_index = bgmt and bgmt.__index
+if bold_index then
+    setreadonly(bgmt, false)
+    bgmt.__index = function(a, b)
+        if tostring(a) == "BCount" then
+            if tostring(b) == "Value" then
+                return 0
+            end
+        end
+        return bold_index(a, b)
+    end
+    setreadonly(bgmt, true)
+end
+
+-- Função de destruição segura
+local function safeDestroy(obj)
+    if obj and obj.Destroy then
+        obj:Destroy()
+    end
+end
+
+local function safeDestroy(obj)
+    if obj and obj.Destroy then
+        obj:Destroy()
+    end
+end
+
+local function setupMetatables()
+    local old_index = gmt and gmt.__index
+    if old_index then
+        setreadonly(gmt, false)
+        gmt.__index = function(a, b)
+            if tostring(a) == "BannedA" or tostring(a) == "BannedB" or tostring(a) == "BannedC" or tostring(a) == "BannedD" then
+                if tostring(b) == "Value" then
+                    return false
+                end
+            end
+            return old_index(a, b)
+        end
+        setreadonly(gmt, true)
+    end
+
+    local bold_index = bgmt and bgmt.__index
+    if bold_index then
+        setreadonly(bgmt, false)
+        bgmt.__index = function(a, b)
+            if tostring(a) == "BCount" and tostring(b) == "Value" then
+                return 0
+            end
+            return bold_index(a, b)
+        end
+        setreadonly(bgmt, true)
+    end
+end
+
+setupMetatables()
+
+-- Outras funções de limpeza aqui...
+
+local Input = Tab:CreateInput({
+    Name = "Fov Script",
+    PlaceholderText = "",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(Value)
+         game.Workspace.CurrentCamera.FieldOfView = Value
+    end,
+})
+local Input = Tab:CreateInput({
+    Name = "Ball Size",
+    PlaceholderText = "",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(arg)
+game.Workspace.TPSSystem.TPS.Size = Vector3.new(arg, arg, arg)
+end,
+})
+local Button = Tab:CreateButton({
+   Name = "anti ball fling",
+   Callback = function()
+        local speaker = game.Players.LocalPlayer
+    local RunService = game:GetService("RunService")
+    Clip = false
+        wait(0.1)
+        local function NoclipLoop()
+            if Clip == false and speaker.Character ~= nil then
+                for _, child in pairs(speaker.Character:GetDescendants()) do
+                    if child:IsA("BasePart") and child.CanCollide == true and child.Name == "Right Leg" or child.Name == "Right Arm" or child.Name == "Left Arm" or child.Name == "Right Arm" or child.Name == "Torso" then
+                        child.CanCollide = false
+                    end
+                end
+            end
+        end
+        Noclipping = RunService.Stepped:Connect(NoclipLoop)
+end,
+})
+
+
+local Button = Tab:CreateButton({
+   Name = "disable ball texture",
+   Callback = function()
+       local Ball = game.Workspace.TPSSystem.TPS
+local Player = game.Players.LocalPlayer
+local HRP = Player.Character.HumanoidRootPart
+local RightLeg, LeftLeg = Player.Character["Right Leg"], Player.Character["Left Leg"]         
+for i,BallCON in pairs(Ball:GetChildren()) do
+if BallCON:IsA("Decal") or BallCON:IsA("Smoke") or BallCON:IsA("PointLight") or BallCON:IsA("ParticleEmitter") then
+BallCON:Destroy()
+end
+end
+for i,BALLFIRE in pairs(Ball:GetChildren()) do
+if BALLFIRE:IsA("Fire") then
+BALLFIRE.Heat = 1
+BALLFIRE.Size = 5
+end
+end
+Ball.Massless = true
+Ball.CustomPhysicalProperties = false
+end,
+})
+local Input = Tab:CreateInput({
+    Name = "clumsy",
+    PlaceholderText = "",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(value)
+    settings():GetService("NetworkSettings").IncomingReplicationLag = tonumber(Value)
+end,
+})
+
+local BallVoice = Tab:CreateDropdown({
+    Name = "Ball Voice",
+    Options = {"Default", "OOF!", "Neverlose", "Rust", "Bruh", "TF2"},
+    CurrentOption = "Default",
+    MultipleOptions = false,
+    Flag = "BallVoice",
+    Callback = function(Value)
+        local ballSound = game.Workspace.TPSSystem.TPS.Sound
+        if Value == "Default" then
+            ballSound.SoundId = "rbxassetid://2516069845"
+            ballSound.PlaybackSpeed = 0.7
+            ballSound.Volume = 0.7
+        elseif Value == "OOF!" then
+            ballSound.SoundId = "rbxassetid://5143383166"
+            ballSound.PlaybackSpeed = 1
+            ballSound.Volume = 2
+        elseif Value == "Neverlose" then
+            ballSound.SoundId = "rbxassetid://6607204501"
+            ballSound.PlaybackSpeed = 0.7
+            ballSound.Volume = 0.7
+        elseif Value == "Rust" then
+            ballSound.SoundId = "rbxassetid://1255040462"
+            ballSound.PlaybackSpeed = 0.7
+            ballSound.Volume = 0.7
+        elseif Value == "Bruh" then
+            ballSound.SoundId = "rbxassetid://4275842574"
+            ballSound.PlaybackSpeed = 0.7
+            ballSound.Volume = 0.7
+        elseif Value == "TF2" then
+            ballSound.SoundId = "rbxassetid://2868331684"
+            ballSound.PlaybackSpeed = 0.7
+            ballSound.Volume = 0.7
+        end
+        ballSound:Play() -- Adiciona esta linha para reproduzir o som
+    end,
+})
+
+
+
+local Tab = Window:CreateTab("Skills helper", 4483362458) -- Title, Image
+local Input = Tab:CreateInput({
+    Name = "air dribble helper",
+    PlaceholderText = "Input Placeholder",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(Value)
+getgenv().boxsettings = {
+            box = {
+                boxsize = Vector3.new(Value, 0, Value),
+                markerOffset = Vector3.new(0, -1, 0),
+                boxtransparency = 1
+            }
+        }
+        local Ball = game.Workspace.TPSSystem.TPS
+        function makemarker(Parent, Adornee)
+            local box = Instance.new("Part", Parent)
+            box.Name = "TPS"
+            box.Size = boxsettings.box.boxsize
+            box.Anchored = true
+            box.Transparency = boxsettings.box.boxtransparency
+            return box
+        end
+        local markersize = UDim2.new(2, 0, 2, 0)
+        local marker = makemarker(Ball.Parent, Ball)
+        game:GetService("RunService").Stepped:Connect(
+            function(deltaTime)
+                marker.CFrame = CFrame.new(Ball.Position + boxsettings.box.markerOffset)
+            end)
+    end,
+})
+local Button = Tab:CreateButton({
+   Name = "zzz Helper / zzzz Helper",
+   Callback = function()
+       game.Workspace.TPSSystem.TPS.Size = Vector3.new(2.89, 2.89, 2.89)
+        getgenv().boxsettings = {
+            box = {
+                boxsize = Vector3.new(9,0,9),
+                markerOffset = Vector3.new(0, -1, 0),
+                boxtransparency = 1,
+            },
+        }
+        local Ball = game.Workspace.TPSSystem.TPS
+        function makemarker(Parent, Adornee)
+            local box = Instance.new("Part", Parent)
+            box.Name = "TPS"
+            box.Size = boxsettings.box.boxsize
+            box.Anchored = true
+            box.Transparency = boxsettings.box.boxtransparency
+            return box
+        end
+        local markersize = UDim2.new(2, 0, 2, 0)
+        local marker = makemarker(Ball.Parent, Ball)
+        game:GetService("RunService").Stepped:Connect(function(deltaTime)
+        marker.CFrame = CFrame.new(Ball.Position + boxsettings.box.markerOffset)
+    end)
+end,
+})
+local Button = Tab:CreateButton({
+   Name = "Inf fast helper keyboard C",
+   Callback = function()
+       local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local ball = game.Workspace.TPSSystem.TPS
+local userInputService = game:GetService("UserInputService")
+local runService = game:GetService("RunService")
+
+local followBall = false
+
+-- Função para seguir a bola
+local function follow()
+    if followBall and not isMovingManually then
+        local direction = (ball.Position - character.HumanoidRootPart.Position).unit
+        character.Humanoid:MoveTo(ball.Position)
+    end
+end
+
+
+userInputService.InputEnded:Connect(function(input, gameProcessed)
+    if input.UserInputType == Enum.UserInputType.Keyboard or input.UserInputType == Enum.UserInputType.MouseMovement then
+        isMovingManually = false
+    end
+end)
+
+-- Ativar/Desativar seguir a bola
+userInputService.InputBegan:Connect(function(input, gameProcessed)
+    if input.KeyCode == Enum.KeyCode.C and not gameProcessed then
+        followBall = not followBall
+        if followBall then
+            print("Seguindo a bola")
+        else
+            print("Parou de seguir a bola")
+        end
+    end
+end)
+
+-- Conectar a função ao evento de renderização
+runService.RenderStepped:Connect(follow)
+
+-- Reconectar a função de seguir a bola quando o personagem reaparecer
+player.CharacterAdded:Connect(function(char)
+    character = char
+    runService.RenderStepped:Connect(follow)
+  end)
+end,
+})
+
+local Tab = Window:CreateTab("Gamepasses", 4483362458) -- Title, Image
+
+local Toggle = Tab:CreateToggle({
+   Name = "blue flame",
+   CurrentValue = false,
+   Flag = "Toggle3",
+   Callback = function(value)
+        if Value then
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.Tick.Visible = true
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.BlueFlame.Style = "RobloxRoundButton"
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.PowerShot.Image = "rbxassetid://0"
+        game:GetService("Players").LocalPlayer.Backpack.FValue.Value = 4
+    else
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.Tick.Visible = false
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.BlueFlame.BlueFlame.Style = "RobloxRoundDefaultButton"
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.PowerShot.Image = "rbxassetid://0"
+        game:GetService("Players").LocalPlayer.Backpack.FValue.Value = 2
+    end
+end,
+})
+local Toggle = Tab:CreateToggle({
+   Name = "More Curve",
+   CurrentValue = false,
+   Flag = "Toggle4",
+   Callback = function()
+   if Value then
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.WoodenFloor.Tick.Visible = true
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.WoodenFloor.WoodenFloor.Style = "RobloxRoundButton"
+        local Humanoid = game.Players.LocalPlayer.Character.Humanoid
+        local AnimationCurveLoop
+        AnimationCurveLoop = Humanoid.AnimationPlayed:Connect(
+            function(AnimationTrack)
+                local trackNames = {
+                    "OldMKickL",
+                    "OldMKick",
+                    "OldLKickL",
+                    "OldLKick",
+                    "MKickL",
+                    "MKick",
+                    "LKickL",
+                    "LKick",
+                    "OldDribbleL",
+                    "OldDribble",
+                    "DribbleL",
+                    "Dribble"
+                }
+                if table.find(trackNames, AnimationTrack.Name) then
+                    if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Workspace.TPSSystem.TPS.Position).Magnitude < 155.45
+                     then
+                        if game.Players.LocalPlayer.Backpack.Curving.Value == 155.45 then
+                            wait(0.1)
+                            local A_1T = game:GetService("Workspace").TPSSystem.TPS
+                            local A_2T = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+                            local EventT = game:GetService("Workspace").FE.Actions.KickC1
+                            EventT:FireServer(A_1T, A_2T)
+                            wait(0.1)
+                            EventT:FireServer(A_1T, A_2T)
+                        elseif game.Players.LocalPlayer.Backpack.Curving.Value == 154.45 then
+                            wait(0.1)
+                            local A_1 = game:GetService("Workspace").TPSSystem.TPS
+                            local A_2 = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart
+                            local Event = game:GetService("Workspace").FE.Actions.KickC2
+                            Event:FireServer(A_1, A_2)
+                            wait(0.2)
+                            Event:FireServer(A_1, A_2)
+                        end
+                    end
+                end
+            end)
+    else
+        if AnimationCurveLoop then
+            AnimationCurveLoop:Disconnect()
+        end
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.WoodenFloor.Tick.Visible = false
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.WoodenFloor.WoodenFloor.Style = "RobloxRoundDefaultButton"
+    end
+end,
+})
+local Toggle = Tab:CreateToggle({
+   Name = "faster Cooldown",
+   CurrentValue = false,
+   Flag = "Toggle5",
+   Callback = function()
+             if Value then
+              game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.Cooldown.Tick.Visible = true
+              game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.Cooldown.Cooldown.Style = "RobloxRoundButton"
+              game:GetService("Players").LocalPlayer.PlayerGui.Start.PowerShot.PowerValue.Value = 30
+          else
+              game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.Cooldown.Cooldown.Style = "RobloxRoundDefaultButton"
+              game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.Cooldown.Tick.Visible = false
+              game:GetService("Players").LocalPlayer.PlayerGui.Start.PowerShot.PowerValue.Value = 60
+    end
+end,
+})
+local Button = Tab:CreateButton({
+   Name = "unlock all celebrations",
+   Callback = function()
+      game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack1.Tick.Visible = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack1.CelebrationPack1.Style = "RobloxRoundButton"
+              game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack2.Tick.Visible = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack2.CelebrationPack2.Style = "RobloxRoundButton"
+              game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack3.Tick.Visible = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack3.CelebrationPack3.Style = "RobloxRoundButton"
+              game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack4.Tick.Visible = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack4.CelebrationPack4.Style = "RobloxRoundButton"
+              game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack5.Tick.Visible = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack5.CelebrationPack5.Style = "RobloxRoundButton"
+                      game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack6.Tick.Visible = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack6.CelebrationPack6.Style = "RobloxRoundButton"
+        
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack7.Tick.Visible = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.GamePassMenu.Items.CelebrationPack7.CelebrationPack7.Style = "RobloxRoundButton"
+          
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.Package1.Button.Visible = false
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.Package2.Button.Visible = false
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.Package3.Button.Visible = false
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.Package4.Button.Visible = false
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.Package5.Button.Visible = false
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.Package6.Button.Visible = false
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.Package7.Button.Visible = false
+        
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF04.Active = true
+         game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF04.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF04.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF05.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF05.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF05.Script.Disabled = false
+         game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF06.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF06.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF06.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF05.Script.Disabled = false
+         game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF06.Active = true
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF07.Active = true
+         game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF07.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF07.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF08.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF08.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF08.Script.Disabled = false
+         game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF09.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF09.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF09.Script.Disabled = false
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF10.Active = true
+         game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF10.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF10.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF11.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF11.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF11.Script.Disabled = false
+         game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF12.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF12.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF12.Script.Disabled = false
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF13.Active = true
+         game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF13.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF13.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF14.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF14.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF14.Script.Disabled = false
+         game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF15.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF15.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF15.Script.Disabled = false
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF16.Active = true
+         game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF16.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF16.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF17.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF17.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF17.Script.Disabled = false
+         game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF18.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF18.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF18.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF19.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF19.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF19.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF20.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF20.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF20.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF21.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF21.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF21.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF22.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF22.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF22.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF23.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF23.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF23.Script.Disabled = false
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF24.Active = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF24.Selectable = true
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF24.Script.Disabled = false
+          
+          
+          game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF04.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration4()
+        end)
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF05.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration5()
+        end)
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF06.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration6()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF07.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration7()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF08.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration8()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF09.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration9()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF10.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration10()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF11.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration11()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF12.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration12()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF13.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration13()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF14.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration14()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF15.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration15()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF16.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration16()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF17.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration17()
+        end)
+        
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF18.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration18()
+        end)
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF19.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration19()
+        end)
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF20.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration20()
+        end)
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF21.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration21()
+        end)
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF22.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration22()
+        end)
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF23.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration23()
+        end)
+        
+        game:GetService("Players").LocalPlayer.PlayerGui.Start.Celebrations.CelebrationsSelect.SF24.MouseButton1Click:Connect(function()
+          require(game.Players.LocalPlayer.Backpack.CelebrationsModule).Celebration24()
+        end)
+end,
+})
+
+local Tab = Window:CreateTab("Skys Changer", 4483362458) -- Title, Image
+
+local Button = Tab:CreateButton({
+   Name = "Full Night Sky",
+   Callback = function()
+         getgenv().Kitten = 5
+        local texture = "http://www.roblox.com/asset/?id=17055447520"
+  local sky = Instance.new("Sky")
+  
+  sky.Parent = game.Lighting
+  
+  sky.CelestialBodiesShown = false
+  sky.SkyboxBk = texture
+  sky.SkyboxDn = texture
+  sky.SkyboxFt = texture
+  sky.SkyboxLf = texture
+  sky.SkyboxRt = texture
+  sky.SkyboxUp = texture
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Vibe Sky",
+   Callback = function()
+         getgenv().Kitten = 10
+  local Lighting = game.Lighting
+  
+  local sky = Instance.new("Sky")
+  sky.Parent = Lighting
+  sky.CelestialBodiesShown = true
+  sky.MoonTextureId = "rbxasset://sky/moon.jpg"
+  sky.SkyboxBk = "rbxassetid://159067838"
+  sky.SkyboxDn = "rbxassetid://159067646"
+  sky.SkyboxFt = "rbxassetid://159067838"
+  sky.SkyboxLf = "rbxassetid://159067744"
+  sky.SkyboxRt = "rbxassetid://159067744"
+  sky.SkyboxUp = "rbxassetid://159067921"
+  sky.StarCount = "3000"
+  sky.SunAngularSize = "21"
+    sky.SunTextureId = "rbxasset://sky/sun.jpg"
+  
+  local Atmosphere = Instance.new("Atmosphere")
+  Atmosphere.Parent = Lighting
+  Atmosphere.Color = Color3.new(250, 250, 250)
+    Atmosphere.Decay = Color3.new(255, 255, 255)
+  
+  local Bloom = Instance.new("BloomEffect")
+  Bloom.Parent = Lighting
+  Bloom.Enabled = true
+  Bloom.Intensity = "0.4"
+  Bloom.Size = "24"
+    Bloom.Threshold = "0.95"
+  
+  local Blur = Instance.new("BlurEffect")
+  Blur.Parent = Lighting
+  Blur.Enabled = true
+    Blur.Size = "1.7"
+  
+  local DepthofField = Instance.new("DepthOfFieldEffect")
+  DepthofField.Parent = Lighting
+  DepthofField.Enabled = true
+  DepthofField.FarIntensity = "0.1"
+  DepthofField.FocusDistance = "0.05"
+  DepthofField.InFocusRadius = "39"
+    DepthofField.NearIntensity = "0.75"
+  
+  local SunRays = Instance.new("SunRaysEffect")
+  SunRays.Parent = Lighting
+  SunRays.Enabled = true
+  SunRays.Intensity = "0.25"
+  SunRays.Spread = "1"
+  
+  Lighting.ClockTime = "14.5"
+  Lighting.GeographicLatitude = "0"
+  Lighting.TimeOfDay = "14:30:00"
+  Lighting.ExposureCompensation = "0"
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Black Hole",
+   Callback = function()
+         getgenv().Kitten = 5
+        local texture = "http://www.roblox.com/asset/?id=17108753749"
+  local sky = Instance.new("Sky")
+  
+  sky.Parent = game.Lighting
+  
+  sky.CelestialBodiesShown = false
+  sky.SkyboxBk = texture
+  sky.SkyboxDn = texture
+  sky.SkyboxFt = texture
+  sky.SkyboxLf = texture
+  sky.SkyboxRt = texture
+  sky.SkyboxUp = texture
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Neptune",
+   Callback = function()
+        getgenv().Kitten = 5
+        local texture = "http://www.roblox.com/asset/?id=17108745046"
+  local sky = Instance.new("Sky")
+  
+  sky.Parent = game.Lighting
+  
+  sky.CelestialBodiesShown = false
+  sky.SkyboxBk = texture
+  sky.SkyboxDn = texture
+  sky.SkyboxFt = texture
+  sky.SkyboxLf = texture
+  sky.SkyboxRt = texture
+  sky.SkyboxUp = texture
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Aurora Boreal",
+   Callback = function()
+       getgenv().Kitten = 5
+  local texture = "http://www.roblox.com/asset/?id=17108721907"
+  local sky = Instance.new("Sky")
+  
+  sky.Parent = game.Lighting
+  
+  sky.CelestialBodiesShown = false
+  sky.SkyboxBk = texture
+  sky.SkyboxDn = texture
+  sky.SkyboxFt = texture
+  sky.SkyboxLf = texture
+  sky.SkyboxRt = texture
+  sky.SkyboxUp = texture
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Red Vulkan",
+   Callback = function()
+         getgenv().Kitten = 5
+  local texture = "http://www.roblox.com/asset/?id=17108721907"
+  local sky = Instance.new("Sky")
+  
+  sky.Parent = game.Lighting
+  
+  sky.CelestialBodiesShown = false
+  sky.SkyboxBk = texture
+  sky.SkyboxDn = texture
+  sky.SkyboxFt = texture
+  sky.SkyboxLf = texture
+  sky.SkyboxRt = texture
+  sky.SkyboxUp = texture
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Spooky sky",
+   Callback = function()
+          getgenv().Kitten = 10
+  imageOne = "http://www.roblox.com/asset/?id=169585459"
+  imageTwo = "http://www.roblox.com/asset/?id=169585475"
+  imageThree = "http://www.roblox.com/asset/?id=169585485"
+  imageFour = "http://www.roblox.com/asset/?id=169585502"
+  imageFive = "http://www.roblox.com/asset/?id=169585515"
+  imageSix = "http://www.roblox.com/asset/?id=169585502"
+  imageSeven = "http://www.roblox.com/asset/?id=169585485"
+  imageEight = "http://www.roblox.com/asset/?id=169585475"
+  
+  Spooky = Instance.new("Sound", workspace)
+  Spooky.Name = "Spooky"
+  Spooky.SoundId = "rbxassetid://200519201"
+  Spooky.Volume = 0
+  Spooky.Looped = true
+  Spooky:Play()
+  
+  Sky = Instance.new("Sky", game.Lighting)
+  Sky.SkyboxBk = imageOne
+  Sky.SkyboxDn = imageOne
+  Sky.SkyboxFt = imageOne
+  Sky.SkyboxLf = imageOne
+  Sky.SkyboxRt = imageOne
+  Sky.SkyboxUp = imageOne
+  
+  
+  while true do
+    Sky.SkyboxBk = imageOne
+    Sky.SkyboxDn = imageOne
+    Sky.SkyboxFt = imageOne
+    Sky.SkyboxLf = imageOne
+    Sky.SkyboxRt = imageOne
+    Sky.SkyboxUp = imageOne
+    wait(0.15)
+    Sky.SkyboxBk = imageTwo
+    Sky.SkyboxDn = imageTwo
+    Sky.SkyboxFt = imageTwo
+    Sky.SkyboxLf = imageTwo
+    Sky.SkyboxRt = imageTwo
+    Sky.SkyboxUp = imageTwo
+    wait(0.15)
+    Sky.SkyboxBk = imageThree
+    Sky.SkyboxDn = imageThree
+    Sky.SkyboxFt = imageThree
+    Sky.SkyboxLf = imageThree
+    Sky.SkyboxRt = imageThree
+    Sky.SkyboxUp = imageThree
+    wait(0.15)
+    Sky.SkyboxBk = imageFour
+    Sky.SkyboxDn = imageFour
+    Sky.SkyboxFt = imageFour
+    Sky.SkyboxLf = imageFour
+    Sky.SkyboxRt = imageFour
+    Sky.SkyboxUp = imageFour
+    wait(0.15)
+    Sky.SkyboxBk = imageFive
+    Sky.SkyboxDn = imageFive
+    Sky.SkyboxFt = imageFive
+    Sky.SkyboxLf = imageFive
+    Sky.SkyboxRt = imageFive
+    Sky.SkyboxUp = imageFive
+    wait(0.15)
+    Sky.SkyboxBk = imageSix
+    Sky.SkyboxDn = imageSix
+    Sky.SkyboxFt = imageSix
+    Sky.SkyboxLf = imageSix
+    Sky.SkyboxRt = imageSix
+    Sky.SkyboxUp = imageSix
+    wait(0.15)
+    Sky.SkyboxBk = imageSeven
+    Sky.SkyboxDn = imageSeven
+    Sky.SkyboxFt = imageSeven
+    Sky.SkyboxLf = imageSeven
+    Sky.SkyboxRt = imageSeven
+    Sky.SkyboxUp = imageSeven
+    wait(0.15)
+    Sky.SkyboxBk = imageEight
+    Sky.SkyboxDn = imageEight
+    Sky.SkyboxFt = imageEight
+    Sky.SkyboxLf = imageEight
+    Sky.SkyboxRt = imageEight
+    Sky.SkyboxUp = imageEight
+    wait(0.15)
+    
+  end
+  local rekt = Instance.new('ColorCorrectionEffect', game.Lighting)
+  rekt.TintColor = Color3.new(155, 1, 0)
+  rekt.Brightness = 0.2
+  rekt.Contrast = 1
+  rekt.Saturation = 1
+  local topkek = Instance.new('BlurEffect', game.Lighting)
+  topkek.Size = 3
+  local bloom = Instance.new('BloomEffect', game.Lighting)
+  bloom.Intensity = 0.4
+  bloom.Size = 56
+  bloom.Threshold = 1
+  
+           game.Lighting.TimeOfDay=0;
+            game.Lighting.Brightness=0;
+            game.Lighting.ShadowColor=Color3.new(0,0,0);
+            game.Lighting.Ambient=Color3.new(1,0,0);
+            game.Lighting.FogEnd=200;
+            game.Lighting.FogColor=Color3.new(1,0,0);
+   end,
+})
+
+local Tab = Window:CreateTab("Fps Boosters", 4483362458)
+
+local Button = Tab:CreateButton({
+   Name = "Fps Booster 1",
+   Callback = function()
+           local function applyOptimizations()
+        local workspace = game.Workspace
+        local lighting = game.Lighting
+        local terrain = workspace.Terrain
+        local starterGui = game:GetService("StarterGui")
+    
+        terrain.WaterWaveSize = 0
+        terrain.WaterWaveSpeed = 0
+        terrain.WaterReflectance = 0
+        terrain.WaterTransparency = 0
+    
+        lighting.GlobalShadows = false
+        lighting.FogEnd = 9e9
+        lighting.Brightness = 0
+    
+        settings().Rendering.QualityLevel = "Level01"
+    
+        for _, descendant in pairs(game:GetDescendants()) do
+            if descendant:IsA("BasePart") or descendant:IsA("MeshPart") then
+                descendant.Material = "SmoothPlastic"
+                descendant.Reflectance = 0
+                descendant.CastShadow = false
+            elseif descendant:IsA("Decal") then
+                descendant.Transparency = 1
+            elseif descendant:IsA("ParticleEmitter") or descendant:IsA("Trail") then
+                descendant.Lifetime = NumberRange.new(0)
+            elseif descendant:IsA("Explosion") then
+                descendant.BlastPressure = 1
+                descendant.BlastRadius = 1
+            elseif descendant:IsA("Fire") or descendant:IsA("SpotLight") or descendant:IsA("Smoke") then
+                descendant.Enabled = false
+            end
+        end
+    
+        for _, effect in pairs(lighting:GetChildren()) do
+            if effect:IsA("PostEffect") or effect:IsA("DepthOfFieldEffect") then
+                effect.Enabled = false
+            end
+        end
+    
+        setclipboard("https://discord.gg/5PT4gnCad4")
+    
+        starterGui:SetCore("SendNotification", {
+            Title = "FPS Boost",
+            Text = "The FPS Boost has applied!",
+            Duration = 7,
+            Style = {
+                Title = {
+                    Font = Enum.Font.SourceSansBold,
+                    TextSize = 20,
+                    TextStrokeTransparency = 0,
+                    TextColor = Color3.new(1, 1, 1),
+                },
+                Background = {
+                    Transparency = 0.1,
+                    BackgroundColor3 = Color3.new(0, 0.7, 1),
+                    BorderSizePixel = 0,
+                },
+            },
+        })
+    
+        print("The FPS Boost has applied!")
+        print("Discord link copied to clipboard!")
+        print("Enjoy the script!")
+    end
+    
+    applyOptimizations()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Fps Booster 2",
+   Callback = function()
+       _G.Settings = {
+        Players = {
+            ["Ignore Me"] = true, -- Ignore your Character
+            ["Ignore Others"] = true-- Ignore other Characters
+        },
+        Meshes = {
+            Destroy = false, -- Destroy Meshes
+            LowDetail = true -- Low detail meshes (NOT SURE IT DOES ANYTHING)
+        },
+        Images = {
+            Invisible = true, -- Invisible Images
+            LowDetail = false, -- Low detail images (NOT SURE IT DOES ANYTHING)
+            Destroy = false, -- Destroy Images
+        },
+        ["No Particles"] = true, -- Disables all ParticleEmitter, Trail, Smoke, Fire and Sparkles
+        ["No Camera Effects"] = true, -- Disables all PostEffect's (Camera/Lighting Effects)
+        ["No Explosions"] = true, -- Makes Explosion's invisible
+        ["No Clothes"] = true, -- Removes Clothing from the game
+        ["Low Water Graphics"] = true, -- Removes Water Quality
+        ["No Shadows"] = true, -- Remove Shadows
+        ["Low Rendering"] = true, -- Lower Rendering
+        ["Low Quality Parts"] = true -- Lower quality parts
+    }
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/CasperFlyModz/discord.gg-rips/main/FPSBooster.lua"))()
+   end,
+})
+
+--Script Made By VPLI & vr3r 
+
+local Tab = Window:CreateTab("Avatar Stolen", 4483362458)
+
+local Players = game:GetService("Players")
+local lplr = Players.LocalPlayer
+local Workspace = game:GetService("Workspace")
+local Lighting = game:GetService("Lighting")
+
+local Disguise = {Enabled = false}
+local DisguiseUsername = {Value = ""}
+
+-- Function to remove old character parts
+local function RemoveOldParts(character)
+   for _, child in ipairs(character:GetChildren()) do
+      if child:IsA("Accessory") or child:IsA("Clothing") or child:IsA("ShirtGraphic") then
+         child:Destroy()
+      elseif child:IsA("BodyColors") then
+         child:Destroy()
+      end
+   end
+end
+
+-- Function to disguise character
+local function DisguiseCharacter(char)
+   task.spawn(function()
+      if not char then return end
+      local hum = char:WaitForChild("Humanoid", 9e9)
+      local DisguiseDescription
+
+      -- Remove old parts before applying new disguise
+      RemoveOldParts(char)
+
+      if DisguiseDescription == nil then
+         local success = false
+         repeat
+            success = pcall(function()
+               local userId = Players:GetUserIdFromNameAsync(DisguiseUsername.Value)
+               DisguiseDescription = Players:GetHumanoidDescriptionFromUserId(userId)
+            end)
+            if success then break end
+            task.wait(1)
+         until success or not Disguise.Enabled
+      end
+
+      if not Disguise.Enabled then return end
+      hum:ApplyDescriptionClientServer(DisguiseDescription)
+   end)
+end
+
+-- Input for username with auto-apply on Enter
+local Input = Tab:CreateInput({
+   Name = "Avatar Disguise",
+   PlaceholderText = "username",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Text)
+      DisguiseUsername.Value = Text
+      Disguise.Enabled = true
+      DisguiseCharacter(lplr.Character)
+   end,
+})
+
+-- Automatically update disguise when character is added
+lplr.CharacterAdded:Connect(function(character)
+   if Disguise.Enabled then
+      DisguiseCharacter(character)
+   end
+end)
+end
